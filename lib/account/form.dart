@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pro/account/login.dart';
+import '../screens/home.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -68,12 +70,12 @@ class _LoginFormState extends State<LoginForm> {
                           borderRadius: new BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.yellowAccent)),
                       onPressed: () {
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => HomePage(),
-                        //   ),
-                        // );
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -209,12 +211,12 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: new BorderRadius.circular(18.0),
                   side: BorderSide(color: Colors.yellowAccent)),
               onPressed: () {
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => HomePage(),
-                //   ),
-                // );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                );
               },
             ),
             SizedBox(height: 30),
