@@ -16,8 +16,8 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'assets/logo/logo.png',
-            scale: 1.4,
+            'assets/logo/logo01.png',
+            scale: 1.7,
           ),
           Text(
             "ShopMate",
@@ -122,7 +122,7 @@ class _RegisterFormState extends State<RegisterForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Image.asset(
-                  'assets/logo/logo.png',
+                  'assets/logo/logo01.png',
                   scale: 2.5,
                 ),
                 Text(

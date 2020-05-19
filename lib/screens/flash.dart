@@ -12,7 +12,7 @@ class _FlashState extends State<Flash> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 2),
       () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (BuildContext context) => LoginPage())),
     );
@@ -37,7 +37,7 @@ class _FlashState extends State<Flash> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CircleAvatar(
-                            radius: 85, child: Image.asset('assets/logo/logo1.png')),
+                            radius: 85, child: Image.asset('assets/logo/logo.png')),
                       ],
                     ),
                   )),
