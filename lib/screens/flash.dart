@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:my_app/wrapper.dart';
 
  class Flash extends StatefulWidget {
   @override
@@ -12,7 +11,7 @@ class _FlashState extends State<Flash> {
 void initState(){
   super.initState();
   Timer(Duration(seconds: 5), ()=> Navigator.of(context).pushReplacement(MaterialPageRoute(
-    builder: (BuildContext context)=>Warpper()))
+    builder: (BuildContext context)=>LoginPage()))
     );
 }
   @override
