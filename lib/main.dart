@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pro/account/login.dart';
+import './screens/flash.dart';
 
 void main() {
   runApp(MyApp());

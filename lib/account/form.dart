@@ -11,7 +11,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow[300],
+      color: Colors.yellow[100],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -112,7 +112,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange[300],
+      color: Colors.orange[100],
       child: Container(
         margin: EdgeInsets.all(28),
         child: Column(
@@ -196,12 +196,11 @@ class _RegisterFormState extends State<RegisterForm> {
             RaisedButton(
               elevation: 8,
               textColor: Colors.white,
-              color: Colors.yellow[300],
+              color: Colors.yellow[800],
               padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
               child: Text(
                 'Register',
                 style: TextStyle(
-                  color: Colors.deepOrange,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
@@ -225,7 +224,6 @@ class _RegisterFormState extends State<RegisterForm> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
-                // fontWeight: FontWeight.bold
               ),
             ),
           ],
