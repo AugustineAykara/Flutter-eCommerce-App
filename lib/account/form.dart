@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pro/account/login.dart';
-import '../screens/home.dart';
+import '../screens/homePage.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -73,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => Home(),
                           ),
                         );
                       },

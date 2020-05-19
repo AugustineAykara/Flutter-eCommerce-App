@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './screens/flash.dart';
+import 'flash.dart';
 
 void main() {
   runApp(MyApp());
