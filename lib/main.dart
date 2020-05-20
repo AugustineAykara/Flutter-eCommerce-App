@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'flash.dart';
+// import 'flash.dart';
+import 'account/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,16 +14,15 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
-        hintColor: Colors.white,
-
-        textTheme: new TextTheme(
-          
+        // hintColor: Colors.white,
+        textTheme: new TextTheme(          
           bodyText1: new TextStyle(color: Colors.black),
         ),
         //primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Flash(),
+      // home: Flash(),
+      home: LoginPage()
     );
   }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "459336630192",
+    "firebase_url": "https://flutter-shopmate.firebaseio.com",
+    "project_id": "flutter-shopmate",
+    "storage_bucket": "flutter-shopmate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459336630192:android:0c248a26ccd068218b6075",
+        "android_client_info": {
+          "package_name": "com.example.shopmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459336630192-fel7gge806h9cdh81ni5r2jj9nasv9ao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdxB7NCOJnH1sJb9vyBdr0z70NWr3So10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459336630192-fel7gge806h9cdh81ni5r2jj9nasv9ao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
