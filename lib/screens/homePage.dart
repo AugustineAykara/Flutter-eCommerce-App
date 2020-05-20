@@ -48,139 +48,139 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        titleSpacing: 10,
-        title: cusSearchBar,
-        backgroundColor: Colors.blue[800],
-        actions: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              new IconButton(
-                icon: cusIcon,
-                onPressed: () {
-                  setState(() {
-                    if (this.cusIcon.icon == Icons.search) {
-                      this.cusIcon = Icon(
-                        Icons.cancel,
-                        color: Colors.white,
-                      );
-                      this.cusSearchBar = TextField(
-                        cursorColor: Colors.black,
-                        textInputAction: TextInputAction.go,
-                        decoration: InputDecoration(
-                          hintText: "search",
-                          prefixIcon: new Icon(
-                            Icons.search,
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                      );
-                    } else {
-                      this.cusIcon = Icon(Icons.search, color: Colors.white);
-                      this.cusSearchBar = Text(
-                        "Shop now",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Calistoga',
-                            letterSpacing: .4,
-                            fontSize: 23),
-                      );
-                    }
-                  });
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-      drawer: new Drawer(
-        child: new ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: Text("name"),
-              accountEmail: Text("user@gmail.com"),
-              currentAccountPicture: GestureDetector(
-                child: new CircleAvatar(
-                  backgroundColor: Colors.lightBlue,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 60,
-                  ),
-                ),
-              ),
-              decoration: new BoxDecoration(color: Colors.blue[800]),
-            ),
-            //          body
+      // appBar: AppBar(
+      //   titleSpacing: 10,
+      //   title: cusSearchBar,
+      //   backgroundColor: Colors.blue[800],
+      //   actions: <Widget>[
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: <Widget>[
+      //         new IconButton(
+      //           icon: cusIcon,
+      //           onPressed: () {
+      //             setState(() {
+      //               if (this.cusIcon.icon == Icons.search) {
+      //                 this.cusIcon = Icon(
+      //                   Icons.cancel,
+      //                   color: Colors.white,
+      //                 );
+      //                 this.cusSearchBar = TextField(
+      //                   cursorColor: Colors.black,
+      //                   textInputAction: TextInputAction.go,
+      //                   decoration: InputDecoration(
+      //                     hintText: "search",
+      //                     prefixIcon: new Icon(
+      //                       Icons.search,
+      //                       color: Colors.white,
+      //                     ),
+      //                   ),
+      //                   style: TextStyle(color: Colors.black, fontSize: 16),
+      //                 );
+      //               } else {
+      //                 this.cusIcon = Icon(Icons.search, color: Colors.white);
+      //                 this.cusSearchBar = Text(
+      //                   "Shop now",
+      //                   style: TextStyle(
+      //                       color: Colors.white,
+      //                       fontFamily: 'Calistoga',
+      //                       letterSpacing: .4,
+      //                       fontSize: 23),
+      //                 );
+      //               }
+      //             });
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
+      // drawer: new Drawer(
+      //   child: new ListView(
+      //     children: <Widget>[
+      //       new UserAccountsDrawerHeader(
+      //         accountName: Text("name"),
+      //         accountEmail: Text("user@gmail.com"),
+      //         currentAccountPicture: GestureDetector(
+      //           child: new CircleAvatar(
+      //             backgroundColor: Colors.lightBlue,
+      //             child: Icon(
+      //               Icons.person,
+      //               color: Colors.white,
+      //               size: 60,
+      //             ),
+      //           ),
+      //         ),
+      //         decoration: new BoxDecoration(color: Colors.blue[800]),
+      //       ),
+      //       //          body
 
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("My Account"),
-                leading: Icon(
-                  Icons.person,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("My order"),
-                leading: Icon(
-                  Icons.shopping_basket,
-                  color: Colors.green,
-                ),
-              ),
-            ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("My Account"),
+      //           leading: Icon(
+      //             Icons.person,
+      //             color: Colors.red,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("My order"),
+      //           leading: Icon(
+      //             Icons.shopping_basket,
+      //             color: Colors.green,
+      //           ),
+      //         ),
+      //       ),
 
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Help & Feedback"),
-                leading: Icon(
-                  Icons.feedback,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("About"),
-                leading: Icon(
-                  Icons.help,
-                  color: Colors.lightBlue,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Settings"),
-                leading: Icon(
-                  Icons.settings,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () async {
-                // await _auth.signOut();
-              },
-              child: ListTile(
-                title: Text("log out"),
-                leading: Icon(
-                  Icons.person,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("Help & Feedback"),
+      //           leading: Icon(
+      //             Icons.feedback,
+      //             color: Colors.red,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("About"),
+      //           leading: Icon(
+      //             Icons.help,
+      //             color: Colors.lightBlue,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("Settings"),
+      //           leading: Icon(
+      //             Icons.settings,
+      //             color: Colors.grey,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () async {
+      //           // await _auth.signOut();
+      //         },
+      //         child: ListTile(
+      //           title: Text("log out"),
+      //           leading: Icon(
+      //             Icons.person,
+      //             color: Colors.red,
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: Container(
         child: callPage(_currentIndex),
       ),
@@ -194,7 +194,7 @@ class HomeState extends State<Home> {
             ),
             title: Text(
               "Home",
-              style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
             ),
             backgroundColor: Colors.blue[800],
           ),
@@ -205,7 +205,7 @@ class HomeState extends State<Home> {
             ),
             title: Text(
               "Offers",
-              style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
             ),
             backgroundColor: Colors.blue[800],
           ),
@@ -213,7 +213,7 @@ class HomeState extends State<Home> {
             icon: Icon(Icons.favorite),
             title: Text(
               "Favourite",
-              style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
             ),
             backgroundColor: Colors.blue[800],
           ),
@@ -221,7 +221,7 @@ class HomeState extends State<Home> {
             icon: Icon(Icons.shopping_cart),
             title: Text(
               "My cart",
-              style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
             ),
             backgroundColor: Colors.blue[800],
           )
