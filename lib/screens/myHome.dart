@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'shop1.dart';
 import 'shop2.dart';
 import 'package:http/http.dart' as http;
+import '../sizeconfig.dart';
 
 class MyHome extends StatefulWidget {
   static String tag = 'MyHome';
@@ -43,11 +44,12 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(height / 4.5),
+          preferredSize: Size.fromHeight(SizeConfig.blockSizeVertical * 15),
           child: Container(
             color: Colors.white,
             child: Padding(
@@ -73,7 +75,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                     height: 10,
                   ),
                   Container(
-                    height: 40.0,
+                    height: SizeConfig.blockSizeVertical * 4.5,
                     width: double.infinity,
                     child: CupertinoTextField(
                       keyboardType: TextInputType.text,
@@ -92,7 +94,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         color: Colors.white,
                       ),
                     ),
@@ -115,7 +117,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                       children: <Widget>[
                         Expanded(
                           child: Container(
-                              height: 200,
+                              height: SizeConfig.blockSizeVertical * 20,
                               //width: width,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -145,7 +147,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
           ),
           SliverList(delegate: SliverChildListDelegate(<Widget>[
               Container(
-                height: 500,
+                height: SizeConfig.blockSizeVertical * 55,
                 
                 child: DefaultTabController(
                   length: 3,
@@ -423,8 +425,8 @@ class BodyWidget extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     SizedBox(
-                      height: height / 8,
-                      width: width / 4,
+                      height: SizeConfig.blockSizeVertical * 12,
+                      //width: SizeConfig.blockSizeHorizontal * 20,
                       child: Image.network(
                         "https://www.searchpng.com/wp-content/uploads/2019/01/Nike-Shoe-PNG-715x715.png",
                         //data[index]['event_poster'],
