@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../screens/homePage.dart';
+// import '../screens/homePage.dart';
 import 'login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -9,6 +9,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  FocusNode passwordFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,14 +20,13 @@ class _LoginFormState extends State<LoginForm> {
         children: <Widget>[
           Image.asset(
             'assets/logo/logo01.png',
-            scale: 1.7,
+            scale: 1.8,
           ),
           Text(
             "ShopMate",
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Montserrat',
               color: Colors.orange[900],
             ),
           ),
@@ -38,21 +39,18 @@ class _LoginFormState extends State<LoginForm> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter your e-mail ID',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                      ),
+                      textInputAction: TextInputAction.next,
+                      decoration: textInputDecoration('Enter your email ID'),
+                      onFieldSubmitted: (String value) {
+                        FocusScope.of(context)
+                            .requestFocus(passwordFocus);
+                      },
                     ),
                     SizedBox(height: 14),
                     TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter your password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                      ),
+                      focusNode: passwordFocus,
+                      textInputAction: TextInputAction.done,
+                      decoration: textInputDecoration('Enter your password'),
                     ),
                     SizedBox(height: 30),
                     RaisedButton(
@@ -71,12 +69,15 @@ class _LoginFormState extends State<LoginForm> {
                           borderRadius: new BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.yellowAccent)),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Home(),
-                          ),
-                        );
+                        // checkValidUser();
+                        // setSharedPref();
+
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Home(),
+                        //   ),
+                        // );
                       },
                     ),
                   ],
@@ -102,6 +103,15 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+
+  InputDecoration textInputDecoration(placeholder) {
+    return InputDecoration(
+      labelText: placeholder,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+      ),
+    );
+  }
 }
 
 class RegisterForm extends StatefulWidget {
@@ -115,6 +125,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  FocusNode confirmPasswordFocus = FocusNode();
 
   registerUserData() {
     Firestore.instance
@@ -171,7 +182,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
-                    fontFamily: 'Montserrat',
                     color: Colors.deepOrange[900],
                   ),
                 ),
@@ -180,66 +190,37 @@ class _RegisterFormState extends State<RegisterForm> {
             SizedBox(height: 8),
             TextFormField(
               controller: nameController,
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                labelText: 'Enter your Name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-              ),
+              decoration: textInputDecoration("Name"),
             ),
             SizedBox(height: 14),
             TextFormField(
               controller: phoneController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                labelText: 'Enter your Phone Number',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-              ),
+              decoration: textInputDecoration("Phone Number"),
             ),
             SizedBox(height: 14),
             TextFormField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                labelText: 'Enter your e-mail ID',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-              ),
+              decoration: textInputDecoration("email ID"),
             ),
             SizedBox(height: 14),
             TextFormField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                labelText: 'Password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-              ),
+              textInputAction: TextInputAction.next,
+              decoration: textInputDecoration("Password"),
+              onFieldSubmitted: (String value) {
+                FocusScope.of(context).requestFocus(confirmPasswordFocus);
+              },
             ),
             SizedBox(height: 14),
             TextFormField(
+              focusNode: confirmPasswordFocus,
               controller: confirmPasswordController,
+              textInputAction: TextInputAction.done,
               obscureText: true,
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                labelText: 'Confirm Password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-              ),
+              decoration: textInputDecoration("Confirm Password"),
             ),
             SizedBox(height: 30),
             RaisedButton(
@@ -285,20 +266,31 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void alertBox(message) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Alert"),
-            content: Text(message),
-            actions: [
-              FlatButton(
-                child: Text("Done"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert"),
+          content: Text(message),
+          actions: [
+            FlatButton(
+              child: Text("Done"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  InputDecoration textInputDecoration(placeholder) {
+    return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      labelText: placeholder,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+      ),
+    );
   }
 }

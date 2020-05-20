@@ -25,14 +25,12 @@ class _LoginPageState extends State<LoginPage> {
     Container(
       child: LoginForm(),
     ),
-    Container(
-      child: RegisterForm()
-    ),
+    Container(child: RegisterForm()),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100],      
+      backgroundColor: Colors.yellow[100],
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints:
@@ -42,6 +40,13 @@ class _LoginPageState extends State<LoginPage> {
               pages: pages,
               enableSlideIcon: true,
               positionSlideIcon: .7,
+              slideIconWidget: Wrap(
+                spacing: -14,
+                children: <Widget>[
+                  Icon(Icons.arrow_back_ios, color: Colors.grey),
+                  Icon(Icons.arrow_back_ios, color: Colors.grey[600])
+                ],
+              ),
             ),
           ),
         ),
