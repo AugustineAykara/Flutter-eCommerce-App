@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pro/account/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../screens/homePage.dart';
+import 'login.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -109,6 +110,45 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  registerUserData() {
+    Firestore.instance
+        .collection('users')
+        .document(emailController.text)
+        .setData({
+      'name': nameController.text,
+      'phone': phoneController.text,
+      'email': emailController.text,
+      'password': passwordController.text
+    });
+  }
+
+  inputValidation() {
+    if (nameController.text == '' ||
+        phoneController.text == '' ||
+        emailController.text == '' ||
+        passwordController.text == '' ||
+        confirmPasswordController.text == "") {
+      alertBox("Please compete the form");
+    } else if (passwordController.text != confirmPasswordController.text) {
+      alertBox("Incorrect Password");
+    } else {
+      registerUserData();
+      alertBox("Registered successfully");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -123,7 +163,7 @@ class _RegisterFormState extends State<RegisterForm> {
               children: <Widget>[
                 Image.asset(
                   'assets/logo/logo01.png',
-                  scale: 2.5,
+                  scale: 2.7,
                 ),
                 Text(
                   "ShopMate",
@@ -139,6 +179,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             SizedBox(height: 8),
             TextFormField(
+              controller: nameController,
               decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -150,6 +191,8 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             SizedBox(height: 14),
             TextFormField(
+              controller: phoneController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -161,6 +204,8 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             SizedBox(height: 14),
             TextFormField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -172,6 +217,8 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             SizedBox(height: 14),
             TextFormField(
+              controller: passwordController,
+              obscureText: true,
               decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -183,6 +230,8 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             SizedBox(height: 14),
             TextFormField(
+              controller: confirmPasswordController,
+              obscureText: true,
               decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -210,12 +259,14 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: new BorderRadius.circular(18.0),
                   side: BorderSide(color: Colors.yellowAccent)),
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
-                  ),
-                );
+                inputValidation();
+                // registerUserData();
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Login(),
+                //   ),
+                // );
               },
             ),
             SizedBox(height: 30),
@@ -230,5 +281,24 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
       ),
     );
+  }
+
+  void alertBox(message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Alert"),
+            content: Text(message),
+            actions: [
+              FlatButton(
+                child: Text("Done"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 }

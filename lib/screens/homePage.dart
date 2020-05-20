@@ -29,7 +29,6 @@ class HomeState extends State<Home> {
         return Favourites();
       case 3:
         return MyCart();
-
         break;
       default:
         return MyHome();
