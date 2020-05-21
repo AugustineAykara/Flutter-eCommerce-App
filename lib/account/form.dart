@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+
 // import '../screens/homePage.dart';
 import 'login.dart';
 
@@ -42,8 +45,7 @@ class _LoginFormState extends State<LoginForm> {
                       textInputAction: TextInputAction.next,
                       decoration: textInputDecoration('Enter your email ID'),
                       onFieldSubmitted: (String value) {
-                        FocusScope.of(context)
-                            .requestFocus(passwordFocus);
+                        FocusScope.of(context).requestFocus(passwordFocus);
                       },
                     ),
                     SizedBox(height: 14),
@@ -127,19 +129,49 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmPasswordController = TextEditingController();
   FocusNode confirmPasswordFocus = FocusNode();
 
-  registerUserData() {
-    Firestore.instance
-        .collection('users')
-        .document(emailController.text)
-        .setData({
-      'name': nameController.text,
-      'phone': phoneController.text,
-      'email': emailController.text,
-      'password': passwordController.text
-    });
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  registerUserData() async {
+    FirebaseUser user;
+    try {
+      user = (await auth.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      ))
+          .user;
+      Firestore.instance
+          .collection('users')
+          .document(emailController.text)
+          .setData({
+        'name': nameController.text,
+        'phone': phoneController.text,
+        'email': emailController.text,
+      });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+      );
+    } on PlatformException catch (e) {
+      if (e.toString().contains('ERROR_WEAK_PASSWORD')) {
+        alertBox("password is not strong enough");
+      } else if (e.toString().contains('ERROR_INVALID_EMAIL')) {
+        alertBox('Invalid email');
+      } else if (e.toString().contains('ERROR_EMAIL_ALREADY_IN_USE')) {
+        alertBox(" email is already in use by a different account");
+      }
+    } catch (e) {
+      alertBox(e.toString());
+    } finally {
+      if (user != null) {
+        alertBox("Registered successfully");
+      }
+    }
+
   }
 
-  inputValidation() {
+  inputValidationAndRegisterData() {
     if (nameController.text == '' ||
         phoneController.text == '' ||
         emailController.text == '' ||
@@ -150,13 +182,6 @@ class _RegisterFormState extends State<RegisterForm> {
       alertBox("Incorrect Password");
     } else {
       registerUserData();
-      alertBox("Registered successfully");
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Login(),
-        ),
-      );
     }
   }
 
@@ -240,14 +265,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: new BorderRadius.circular(18.0),
                   side: BorderSide(color: Colors.yellowAccent)),
               onPressed: () {
-                inputValidation();
-                // registerUserData();
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => Login(),
-                //   ),
-                // );
+                inputValidationAndRegisterData();                
               },
             ),
             SizedBox(height: 30),
