@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'shop1.dart';
 import 'shop2.dart';
 import 'package:http/http.dart' as http;
 import '../sizeconfig.dart';
+import '../account/login.dart';
 
 class MyHome extends StatefulWidget {
   static String tag = 'MyHome';
@@ -19,6 +21,17 @@ class MyHome extends StatefulWidget {
 class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
   TabController _tabController;
   List data;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  userSignout() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
 
   Future<String> getJsonData() async {
     var response = await http.get(
@@ -110,26 +123,28 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width / 30),
                     child: Row(
                       children: <Widget>[
                         Expanded(
                           child: Container(
-                              height: SizeConfig.blockSizeVertical * 20,
-                              //width: width,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                              ),
-                              child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzYEl6iQxZLInQQsxvZtpJR3dtD93D3_GybSMMM3B-J8fSGkL57g&s",
-                        //data[index]['event_poster'],
-                        //height: 30,
-                        fit: BoxFit.cover,
-                      ),
-                              ),
+                            height: SizeConfig.blockSizeVertical * 20,
+                            //width: width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: Image.network(
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzYEl6iQxZLInQQsxvZtpJR3dtD93D3_GybSMMM3B-J8fSGkL57g&s",
+                              //data[index]['event_poster'],
+                              //height: 30,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -137,7 +152,6 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                   SizedBox(
                     height: 10,
                   ),
-                  
                   SizedBox(
                     height: 10,
                   ),
@@ -145,14 +159,13 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
               ),
             ),
           ),
-          SliverList(delegate: SliverChildListDelegate(<Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate(<Widget>[
               Container(
                 height: SizeConfig.blockSizeVertical * 55,
-                
                 child: DefaultTabController(
                   length: 3,
                   child: Scaffold(
-                    
                     appBar: TabBar(
                       tabs: const <Tab>[
                         Tab(icon: Text('Popular')),
@@ -169,10 +182,12 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                         new GridView.builder(
                           itemCount: 4,
                           physics: ScrollPhysics(),
-                        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                        itemBuilder: (BuildContext context, int index) {
-                          return new BodyWidget(data, index);
-                        },
+                          gridDelegate:
+                              new SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            return new BodyWidget(data, index);
+                          },
                         ),
                         new Container(
                           height: 200,
@@ -294,6 +309,9 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                   Icons.person,
                   color: Colors.red,
                 ),
+                onTap: () {
+                  userSignout();
+                },
               ),
             ),
           ],
@@ -421,7 +439,7 @@ class BodyWidget extends StatelessWidget {
                         onPressed: null),
                   )),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal:10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: <Widget>[
                     SizedBox(
