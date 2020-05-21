@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-
-// import '../screens/homePage.dart';
+import '../screens/homePage.dart';
 import 'login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -12,7 +11,49 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   FocusNode passwordFocus = FocusNode();
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  userLogin() async {
+    FirebaseUser user;
+    try {
+      user = (await auth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      ))
+          .user;
+    } on PlatformException catch (e) {
+      if (e.toString().contains('ERROR_USER_NOT_FOUND')) {
+        alertBox("there is no user corresponding to the given email address");
+      } else if (e.toString().contains('ERROR_WRONG_PASSWORD')) {
+        alertBox("Wrong Password");
+      } else if (e.toString().contains('ERROR_INVALID_EMAIL')) {
+        alertBox("Invalid email address");
+      }
+    } catch (e) {
+      alertBox(e.toString());
+    } finally {
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ),
+        );
+      }
+    }
+  }
+
+  validLogin() {
+    if (emailController.text == '' || passwordController.text == '') {
+      alertBox("please fill the input field");
+    } else {
+      userLogin();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +83,9 @@ class _LoginFormState extends State<LoginForm> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      controller: emailController,
                       textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: textInputDecoration('Enter your email ID'),
                       onFieldSubmitted: (String value) {
                         FocusScope.of(context).requestFocus(passwordFocus);
@@ -51,7 +94,9 @@ class _LoginFormState extends State<LoginForm> {
                     SizedBox(height: 14),
                     TextFormField(
                       focusNode: passwordFocus,
+                      controller: passwordController,
                       textInputAction: TextInputAction.done,
+                      obscureText: true,
                       decoration: textInputDecoration('Enter your password'),
                     ),
                     SizedBox(height: 30),
@@ -71,7 +116,7 @@ class _LoginFormState extends State<LoginForm> {
                           borderRadius: new BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.yellowAccent)),
                       onPressed: () {
-                        // checkValidUser();
+                        validLogin();
                         // setSharedPref();
 
                         // Navigator.pushReplacement(
@@ -112,6 +157,26 @@ class _LoginFormState extends State<LoginForm> {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
       ),
+    );
+  }
+
+  void alertBox(message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert"),
+          content: Text(message),
+          actions: [
+            FlatButton(
+              child: Text("Done"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -168,7 +233,6 @@ class _RegisterFormState extends State<RegisterForm> {
         alertBox("Registered successfully");
       }
     }
-
   }
 
   inputValidationAndRegisterData() {
@@ -265,7 +329,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: new BorderRadius.circular(18.0),
                   side: BorderSide(color: Colors.yellowAccent)),
               onPressed: () {
-                inputValidationAndRegisterData();                
+                inputValidationAndRegisterData();
               },
             ),
             SizedBox(height: 30),
