@@ -38,7 +38,7 @@ class _PopularPageState extends State<PopularPage>{
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    new GridView.builder(
+    return new GridView.builder(
                           itemCount: 4,
                           physics: ScrollPhysics(),
                         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
