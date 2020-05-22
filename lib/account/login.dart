@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'form.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../screens/homePage.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -23,27 +21,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getUser().then((user) {
-  //     if (user != null) {
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => Home(),
-  //         ),
-  //       );
-  //     }
-  //   });
-  // }
-
-  Future<FirebaseUser> getUser() async {
-    return await auth.currentUser();
-  }
-
+  
   final pages = [
     Container(
       child: LoginForm(),

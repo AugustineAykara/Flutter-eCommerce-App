@@ -1,16 +1,15 @@
 import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 // import 'package:my_app/shop3.dart';
 // import 'location.dart';
 import 'shop1.dart';
 import 'shop2.dart';
-import 'package:http/http.dart' as http;
 import '../sizeconfig.dart';
 import 'popular.dart';
-import '../account/login.dart';
 
 class MyHome extends StatefulWidget {
   static String tag = 'MyHome';
@@ -22,17 +21,6 @@ class MyHome extends StatefulWidget {
 class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
   TabController _tabController;
   List data;
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  userSignout() async {
-    await auth.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Login(),
-      ),
-    );
-  }
 
   Future<String> getJsonData() async {
     var response = await http.get(
@@ -221,95 +209,95 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
         ],
       ),
 
-      drawer: new Drawer(
-        child: new ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: Text("name"),
-              accountEmail: Text("user@gmail.com"),
-              currentAccountPicture: GestureDetector(
-                child: new CircleAvatar(
-                  backgroundColor: Colors.lightBlue,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 60,
-                  ),
-                ),
-              ),
-              decoration: new BoxDecoration(color: Colors.blue[800]),
-            ),
-            //          body
+      // drawer: new Drawer(
+      //   child: new ListView(
+      //     children: <Widget>[
+      //       new UserAccountsDrawerHeader(
+      //         accountName: Text("name"),
+      //         accountEmail: Text("user@gmail.com"),
+      //         currentAccountPicture: GestureDetector(
+      //           child: new CircleAvatar(
+      //             backgroundColor: Colors.lightBlue,
+      //             child: Icon(
+      //               Icons.person,
+      //               color: Colors.white,
+      //               size: 60,
+      //             ),
+      //           ),
+      //         ),
+      //         decoration: new BoxDecoration(color: Colors.blue[800]),
+      //       ),
+      //       //          body
 
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("My Account"),
-                leading: Icon(
-                  Icons.person,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("My order"),
-                leading: Icon(
-                  Icons.shopping_basket,
-                  color: Colors.green,
-                ),
-              ),
-            ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("My Account"),
+      //           leading: Icon(
+      //             Icons.person,
+      //             color: Colors.red,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("My order"),
+      //           leading: Icon(
+      //             Icons.shopping_basket,
+      //             color: Colors.green,
+      //           ),
+      //         ),
+      //       ),
 
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Help & Feedback"),
-                leading: Icon(
-                  Icons.feedback,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("About"),
-                leading: Icon(
-                  Icons.help,
-                  color: Colors.lightBlue,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Settings"),
-                leading: Icon(
-                  Icons.settings,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () async {
-                // await _auth.signOut();
-              },
-              child: ListTile(
-                title: Text("log out"),
-                leading: Icon(
-                  Icons.person,
-                  color: Colors.red,
-                ),
-                onTap: () {
-                  userSignout();
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("Help & Feedback"),
+      //           leading: Icon(
+      //             Icons.feedback,
+      //             color: Colors.red,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("About"),
+      //           leading: Icon(
+      //             Icons.help,
+      //             color: Colors.lightBlue,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () {},
+      //         child: ListTile(
+      //           title: Text("Settings"),
+      //           leading: Icon(
+      //             Icons.settings,
+      //             color: Colors.grey,
+      //           ),
+      //         ),
+      //       ),
+      //       InkWell(
+      //         onTap: () async {
+      //           // await _auth.signOut();
+      //         },
+      //         child: ListTile(
+      //           title: Text("log out"),
+      //           leading: Icon(
+      //             Icons.person,
+      //             color: Colors.red,
+      //           ),
+      //           onTap: () {
+      //             // userSignout();
+      //           },
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       // body: Container(
       //   child: ListView(
       //     children: <Widget>[
