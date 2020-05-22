@@ -1,23 +1,45 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'account/login.dart';
+import 'screens/homePage.dart';
 
-class Flash extends StatefulWidget {
+class Splash extends StatefulWidget {
   @override
-  _FlashState createState() => _FlashState();
+  _SplashState createState() => _SplashState();
 }
 
-class _FlashState extends State<Flash> {
+class _SplashState extends State<Splash> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 3),
-      () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => LoginPage())),
+      Duration(seconds: 2),
+      () => getUser().then((user) {
+        if (user != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Home(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Login(),
+            ),
+          );
+        }
+      }),
     );
   }
 
+  getUser() {
+    return  auth.currentUser();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
