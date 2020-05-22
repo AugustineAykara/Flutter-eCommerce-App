@@ -25,20 +25,20 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  @override
-  void initState() {
-    super.initState();
-    getUser().then((user) {
-      if (user != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Home(),
-          ),
-        );
-      }
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUser().then((user) {
+  //     if (user != null) {
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => Home(),
+  //         ),
+  //       );
+  //     }
+  //   });
+  // }
 
   Future<FirebaseUser> getUser() async {
     return await auth.currentUser();
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100],
+      //backgroundColor: Colors.yellow[100],
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints:

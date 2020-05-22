@@ -58,95 +58,116 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow[100],
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            'assets/logo/logo01.png',
-            scale: 1.8,
-          ),
-          Text(
-            "ShopMate",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.orange[900],
+      color: Colors.white,
+      
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 50,),
+            Image.asset(
+              'assets/logo/signup.png',
+              scale:3,
             ),
-          ),
-          SizedBox(height: 22),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(28),
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: emailController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: textInputDecoration('Enter your email ID'),
-                      onFieldSubmitted: (String value) {
-                        FocusScope.of(context).requestFocus(passwordFocus);
-                      },
-                    ),
-                    SizedBox(height: 14),
-                    TextFormField(
-                      focusNode: passwordFocus,
-                      controller: passwordController,
-                      textInputAction: TextInputAction.done,
-                      obscureText: true,
-                      decoration: textInputDecoration('Enter your password'),
-                    ),
-                    SizedBox(height: 30),
-                    RaisedButton(
-                      elevation: 8,
-                      textColor: Colors.white,
-                      color: Colors.yellow[800],
-                      padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.yellowAccent)),
-                      onPressed: () {
-                        validLogin();
-                        // setSharedPref();
-
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => Home(),
-                        //   ),
-                        // );
-                      },
-                    ),
-                  ],
+            
+                Text(
+                  "Hey,",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    //fontFamily: "Poppins",
+                    //color: Colors.red,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 28),
-          Text(
-            "No Account",
-            style: TextStyle(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "Swipe left to Register",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
-              // fontWeight: FontWeight.bold
+             
+            
+                Text(
+                  "Welcome Back!",
+                  style: TextStyle(
+                    fontSize: 30,
+                    //fontWeight: FontWeight.bold,
+                    //fontFamily: "Poppins",
+                    //color: Colors.red,
+                  ),
+                ),
+              
+            SizedBox(height: 22),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                   margin: EdgeInsets.all(24),
+                  child: Column(
+                    children: <Widget>[
+                      
+                      TextFormField(
+                        controller: emailController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: textInputDecoration('Enter your email ID'),
+                        onFieldSubmitted: (String value) {
+                          FocusScope.of(context).requestFocus(passwordFocus);
+                        },
+                      ),
+                      SizedBox(height: 14),
+                      TextFormField(
+                        focusNode: passwordFocus,
+                        controller: passwordController,
+                        textInputAction: TextInputAction.done,
+                        obscureText: true,
+                        decoration: textInputDecoration('Enter your password'),
+                      ),
+                      SizedBox(height: 30),
+                      RaisedButton(
+                        //elevation: 8,
+                        textColor: Colors.white,
+                        color: Colors.red,
+                        padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0),
+                            //side: BorderSide(color: Colors.yellowAccent)
+                            ),
+                        onPressed: () {
+                          validLogin();
+                          // setSharedPref();
+
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => Home(),
+                          //   ),
+                          // );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 28),
+            Text(
+              "No Account",
+              style: TextStyle(
+                  fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "Swipe left to Register",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+                // fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
