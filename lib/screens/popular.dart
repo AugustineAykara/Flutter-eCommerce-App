@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../sizeconfig.dart';
 import 'package:http/http.dart' as http;
+import 'productpage.dart';
+
 
 class PopularPage extends StatefulWidget {
   @override
@@ -129,10 +131,10 @@ class BodyWidget extends StatelessWidget {
           ),
         ),
         onTap: () {
-          // Navigator.push(
-          //   context,
-          // MaterialPageRoute(builder: (context) => CategoryPage()),
-          // );
+          Navigator.push(
+            context,
+          MaterialPageRoute(builder: (context) => ProductPage()),
+          );
         });
   }
 }

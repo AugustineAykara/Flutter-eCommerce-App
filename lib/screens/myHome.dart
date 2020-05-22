@@ -11,6 +11,7 @@ import 'shop2.dart';
 import '../sizeconfig.dart';
 import 'popular.dart';
 
+
 class MyHome extends StatefulWidget {
   static String tag = 'MyHome';
 
@@ -51,7 +52,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(SizeConfig.blockSizeVertical * 15),
+          preferredSize: Size.fromHeight(SizeConfig.blockSizeVertical * 19),
           child: Container(
             color: Colors.white,
             child: Padding(
@@ -59,7 +60,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 50,
+                    height: SizeConfig.blockSizeVertical * 5,
                   ),
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +152,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
               Container(
-                height: SizeConfig.blockSizeVertical * 55,
+                height: SizeConfig.blockSizeVertical * 70,
                 child: DefaultTabController(
                   length: 3,
                   child: Scaffold(

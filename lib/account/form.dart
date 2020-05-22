@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import '../screens/homePage.dart';
+import '../sizeconfig.dart';
 import 'login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -57,6 +58,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
       color: Colors.white,
       
@@ -65,16 +67,16 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 50,),
+            SizedBox(height: SizeConfig.blockSizeVertical * 5,),
             Image.asset(
               'assets/logo/signup.png',
-              scale:3,
+              height: SizeConfig.blockSizeVertical * 35,
             ),
             
                 Text(
                   "Hey,",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: SizeConfig.blockSizeVertical * 4,
                     fontWeight: FontWeight.bold,
                     //fontFamily: "Poppins",
                     //color: Colors.red,
@@ -85,40 +87,47 @@ class _LoginFormState extends State<LoginForm> {
                 Text(
                   "Welcome Back!",
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: SizeConfig.blockSizeVertical * 4,
                     //fontWeight: FontWeight.bold,
                     //fontFamily: "Poppins",
                     //color: Colors.red,
                   ),
                 ),
               
-            SizedBox(height: 22),
+            SizedBox(height: SizeConfig.blockSizeVertical * 4),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                   margin: EdgeInsets.all(24),
+                   margin: EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: <Widget>[
                       
-                      TextFormField(
-                        controller: emailController,
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: textInputDecoration('Enter your email ID'),
-                        onFieldSubmitted: (String value) {
-                          FocusScope.of(context).requestFocus(passwordFocus);
-                        },
+                      Container(
+                        height: SizeConfig.blockSizeVertical * 8,
+                        child: TextFormField(
+                          controller: emailController,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: textInputDecoration('Enter your email ID'),
+                          onFieldSubmitted: (String value) {
+                            FocusScope.of(context).requestFocus(passwordFocus);
+                          },
+                        ),
                       ),
                       SizedBox(height: 14),
-                      TextFormField(
-                        focusNode: passwordFocus,
-                        controller: passwordController,
-                        textInputAction: TextInputAction.done,
-                        obscureText: true,
-                        decoration: textInputDecoration('Enter your password'),
+                      Container(
+                        height: SizeConfig.blockSizeVertical * 8,
+                        child: TextFormField(
+                          focusNode: passwordFocus,
+                          controller: passwordController,
+                          textInputAction: TextInputAction.done,
+                          obscureText: true,
+                          
+                          decoration: textInputDecoration('Enter your password'),
+                        ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height:SizeConfig.blockSizeVertical * 3,),
                       RaisedButton(
                         //elevation: 8,
                         textColor: Colors.white,
