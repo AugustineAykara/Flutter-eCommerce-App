@@ -15,7 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  // final AuthSerivce _auth = AuthSerivce();
   String username = '', useremailid = '';
   int _currentIndex = 0;
   final FirebaseAuth auth = FirebaseAuth.instance;

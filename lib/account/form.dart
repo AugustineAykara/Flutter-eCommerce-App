@@ -61,111 +61,85 @@ class _LoginFormState extends State<LoginForm> {
     SizeConfig().init(context);
     return Container(
       color: Colors.white,
-      
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: SizeConfig.blockSizeVertical * 5,),
             Image.asset(
               'assets/logo/signup.png',
-              height: SizeConfig.blockSizeVertical * 35,
+              height: SizeConfig.blockSizeVertical * 30,
             ),
-            
-                Text(
-                  "Hey,",
-                  style: TextStyle(
-                    fontSize: SizeConfig.blockSizeVertical * 4,
-                    fontWeight: FontWeight.bold,
-                    //fontFamily: "Poppins",
-                    //color: Colors.red,
-                  ),
-                ),
-             
-            
-                Text(
-                  "Welcome Back!",
-                  style: TextStyle(
-                    fontSize: SizeConfig.blockSizeVertical * 4,
-                    //fontWeight: FontWeight.bold,
-                    //fontFamily: "Poppins",
-                    //color: Colors.red,
-                  ),
-                ),
-              
+            Text(
+              "Hey,",
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 4,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Poppins",
+              ),
+            ),
+            Text(
+              "Welcome Back!",
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 4,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(height: SizeConfig.blockSizeVertical * 4),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                   margin: EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    children: <Widget>[
-                      
-                      Container(
-                        height: SizeConfig.blockSizeVertical * 8,
-                        child: TextFormField(
-                          controller: emailController,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: textInputDecoration('Enter your email ID'),
-                          onFieldSubmitted: (String value) {
-                            FocusScope.of(context).requestFocus(passwordFocus);
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 14),
-                      Container(
-                        height: SizeConfig.blockSizeVertical * 8,
-                        child: TextFormField(
-                          focusNode: passwordFocus,
-                          controller: passwordController,
-                          textInputAction: TextInputAction.done,
-                          obscureText: true,
-                          
-                          decoration: textInputDecoration('Enter your password'),
-                        ),
-                      ),
-                      SizedBox(height:SizeConfig.blockSizeVertical * 3,),
-                      RaisedButton(
-                        //elevation: 8,
-                        textColor: Colors.white,
-                        color: Colors.red,
-                        padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 2),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            //side: BorderSide(color: Colors.yellowAccent)
-                            ),
-                        onPressed: () {
-                          validLogin();
-                          // setSharedPref();
-
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => Home(),
-                          //   ),
-                          // );
-                        },
-                      ),
-                    ],
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: emailController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: textInputDecoration('Enter your email ID'),
+                    onFieldSubmitted: (String value) {
+                      FocusScope.of(context).requestFocus(passwordFocus);
+                    },
                   ),
-                ),
-              ],
+                  SizedBox(height: 14),
+                  TextFormField(
+                    focusNode: passwordFocus,
+                    controller: passwordController,
+                    textInputAction: TextInputAction.done,
+                    obscureText: true,
+                    decoration: textInputDecoration('Enter your password'),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical * 3,
+                  ),
+                  RaisedButton(
+                    //elevation: 8,
+                    textColor: Colors.white,
+                    color: Colors.red,
+                    padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0),
+                      //side: BorderSide(color: Colors.yellowAccent)
+                    ),
+                    onPressed: () {
+                      validLogin();
+                    },
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 28),
+            SizedBox(height: 18),
             Text(
               "No Account",
               style: TextStyle(
-                  fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               "Swipe left to Register",
@@ -183,6 +157,7 @@ class _LoginFormState extends State<LoginForm> {
 
   InputDecoration textInputDecoration(placeholder) {
     return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       labelText: placeholder,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
@@ -282,7 +257,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange[100],
+      color: Colors.deepOrange[50],
       child: Container(
         margin: EdgeInsets.all(28),
         child: Column(
@@ -337,8 +312,8 @@ class _RegisterFormState extends State<RegisterForm> {
             TextFormField(
               focusNode: confirmPasswordFocus,
               controller: confirmPasswordController,
-              textInputAction: TextInputAction.done,
               obscureText: true,
+              textInputAction: TextInputAction.done,
               decoration: textInputDecoration("Confirm Password"),
             ),
             SizedBox(height: 30),
