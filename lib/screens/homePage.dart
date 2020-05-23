@@ -77,53 +77,6 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      // appBar: AppBar(
-      //   titleSpacing: 10,
-      //   title: cusSearchBar,
-      //   backgroundColor: Colors.blue[800],
-      //   actions: <Widget>[
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //       children: <Widget>[
-      //         new IconButton(
-      //           icon: cusIcon,
-      //           onPressed: () {
-      //             setState(() {
-      //               if (this.cusIcon.icon == Icons.search) {
-      //                 this.cusIcon = Icon(
-      //                   Icons.cancel,
-      //                   color: Colors.white,
-      //                 );
-      //                 this.cusSearchBar = TextField(
-      //                   cursorColor: Colors.black,
-      //                   textInputAction: TextInputAction.go,
-      //                   decoration: InputDecoration(
-      //                     hintText: "search",
-      //                     prefixIcon: new Icon(
-      //                       Icons.search,
-      //                       color: Colors.white,
-      //                     ),
-      //                   ),
-      //                   style: TextStyle(color: Colors.black, fontSize: 16),
-      //                 );
-      //               } else {
-      //                 this.cusIcon = Icon(Icons.search, color: Colors.white);
-      //                 this.cusSearchBar = Text(
-      //                   "Shop now",
-      //                   style: TextStyle(
-      //                       color: Colors.white,
-      //                       fontFamily: 'Calistoga',
-      //                       letterSpacing: .4,
-      //                       fontSize: 23),
-      //                 );
-      //               }
-      //             });
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
       drawer: new Drawer(
         child: new ListView(
           children: <Widget>[

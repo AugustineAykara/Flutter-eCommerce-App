@@ -4,16 +4,15 @@ import '../sizeconfig.dart';
 class ProductPage extends StatefulWidget {
   int id;
   List data;
-  ProductPage({Key key, this.id, this.data}): super(key: key);
+  ProductPage({Key key, this.id, this.data}) : super(key: key);
   @override
-  State createState() => new ProductPageState(id:this.id, data: this.data);
+  State createState() => new ProductPageState(id: this.id, data: this.data);
 }
 
 class ProductPageState extends State<ProductPage> {
   int id;
   List data;
   ProductPageState({this.id, this.data});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,8 @@ class ProductPageState extends State<ProductPage> {
                         //width: width,
                         child: new SizedBox(
                           child: Image.network(
-                            "https://flutter-shopmate.herokuapp.com"+data[id]['image']['url'].toString(),
+                            "https://flutter-shopmate.herokuapp.com" +
+                                data[id]['image']['url'].toString(),
                             //Image.network(data[index]['event_poster'],
                             fit: BoxFit.cover,
                           ),
@@ -66,36 +66,35 @@ class ProductPageState extends State<ProductPage> {
             //       ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width / 15),
-              child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 40,),
-                      new Text(data[id]['name'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: SizeConfig.blockSizeVertical * 4)),
-                      new Text("Sports Shoe",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w500,
-                              fontSize: SizeConfig.blockSizeVertical * 2)),
-                      SizedBox(height: 10,),
-                      new Text("Description",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w800,
-                              fontSize: SizeConfig.blockSizeVertical * 2)),
-                      new Text("Made with quality by Nike",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w600,
-                              fontSize: SizeConfig.blockSizeVertical * 2)),
-                    ],
+                  SizedBox(
+                    height: 40,
                   ),
+                  new Text(data[id]['name'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: SizeConfig.blockSizeVertical * 4)),
+                  new Text("Sports Shoe",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeConfig.blockSizeVertical * 2)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  new Text("Description",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                          fontSize: SizeConfig.blockSizeVertical * 2)),
+                  new Text(data[id]['description'].toString(),
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                          fontSize: SizeConfig.blockSizeVertical * 2)),
                 ],
               ),
             )
