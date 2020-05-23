@@ -18,36 +18,58 @@ class _PopularPageState extends State<PopularPage>{
 
   Future<String> getJsonData() async {
     var response = await http.get(
-        Uri.encodeFull("https://jsonplaceholder.typicode.com/albums"),
+        Uri.encodeFull("https://flutter-shopmate.herokuapp.com/products"),
         headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
       if (this.mounted) {
         var converDataToJson = jsonDecode(response.body);
         data = converDataToJson;
-        //print(data[0]);
+        print(data.length);
+        //print(converDataToJson);
 
         return "Success";
       }
     }
+    //print(data);
   }
 
   @override
   void initState() {
     super.initState();
-    this.getJsonData();
+    //this.getJsonData();
   }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return new GridView.builder(
-                          itemCount: 4,
-                          physics: ScrollPhysics(),
-                        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                        itemBuilder: (BuildContext context, int index) {
-                          return new BodyWidget(data, index);
-                        },
-                        );
+    return FutureBuilder(
+          future: getJsonData(),
+          builder: (BuildContext context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done) {
+                                    return Container(
+                                      child: new GridView.builder(
+                            itemCount: data == null ? 0 : data.length,
+                            physics: ScrollPhysics(),
+                          gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            return new BodyWidget(data, index);
+                          },
+                          ),
+                                    );
+                                  }
+                                  else {
+                                    
+                                    return new Column(
+                                      children: <Widget>[
+                                        new Text("Loading..")
+                                        
+                                        
+                                      ],
+                                    );
+                                  }
+          }
+          
+    );
   }
 }
 
@@ -99,7 +121,7 @@ class BodyWidget extends StatelessWidget {
                       height: SizeConfig.blockSizeVertical * 12,
                       //width: SizeConfig.blockSizeHorizontal * 20,
                       child: Image.network(
-                        "https://www.searchpng.com/wp-content/uploads/2019/01/Nike-Shoe-PNG-715x715.png",
+                        "https://flutter-shopmate.herokuapp.com"+data[index]['image']['url'].toString(),
                         //data[index]['event_poster'],
                         //height: 30,
                         fit: BoxFit.cover,
@@ -110,7 +132,7 @@ class BodyWidget extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        Text("Nike",
+                        Text(data[index]['name'].toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: height / 50)),
@@ -118,7 +140,7 @@ class BodyWidget extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        Text("Rs. 4000",
+                        Text(data[index]['price'].toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: height / 50)),
@@ -133,7 +155,7 @@ class BodyWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-          MaterialPageRoute(builder: (context) => ProductPage()),
+          MaterialPageRoute(builder: (context) => ProductPage(id:index, data: data,)),
           );
         });
   }

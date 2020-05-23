@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import '../sizeconfig.dart';
 
 class ProductPage extends StatefulWidget {
+  int id;
+  List data;
+  ProductPage({Key key, this.id, this.data}): super(key: key);
   @override
-  State createState() => new ProductPageState();
+  State createState() => new ProductPageState(id:this.id, data: this.data);
 }
 
 class ProductPageState extends State<ProductPage> {
+  int id;
+  List data;
+  ProductPageState({this.id, this.data});
+  
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -40,7 +48,7 @@ class ProductPageState extends State<ProductPage> {
                         //width: width,
                         child: new SizedBox(
                           child: Image.network(
-                            "https://www.searchpng.com/wp-content/uploads/2019/01/Nike-Shoe-PNG-715x715.png",
+                            "https://flutter-shopmate.herokuapp.com"+data[id]['image']['url'].toString(),
                             //Image.network(data[index]['event_poster'],
                             fit: BoxFit.cover,
                           ),
@@ -66,7 +74,7 @@ class ProductPageState extends State<ProductPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(height: 40,),
-                      new Text("Nike Air",
+                      new Text(data[id]['name'].toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w800,
                               fontSize: SizeConfig.blockSizeVertical * 4)),
@@ -114,7 +122,7 @@ class ProductPageState extends State<ProductPage> {
                         style: TextStyle(fontSize: 12.0, color: Colors.grey),
                       ),
                     ),
-                    Text("Rs.4000",
+                    Text(data[id]['price'].toString(),
                         style: TextStyle(
                             fontSize: 25.0, fontWeight: FontWeight.w600)),
                   ],
