@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../sizeconfig.dart';
 import 'package:http/http.dart' as http;
 import 'productpage.dart';
@@ -14,6 +16,7 @@ class ShoeCategory extends StatefulWidget {
 
 class _ShoeCategoryState extends State<ShoeCategory> {
   List data;
+  String userDoc;
 
   Future<String> getJsonData() async {
     var response = await http.get(
@@ -31,6 +34,18 @@ class _ShoeCategoryState extends State<ShoeCategory> {
     return (null);
   }
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  getCurrentUser() async {
+    FirebaseUser user = await auth.currentUser();
+    userDoc = user.email;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -45,6 +60,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (BuildContext context, int index) {
+                  // print(data[index]['id']);
                   return bodyWidget(data, index, context);
                 },
               ),
@@ -90,7 +106,15 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                 ),
                 child: IconButton(
                     icon: Icon(Icons.add, color: Colors.white, size: 15),
-                    onPressed: null),
+                    onPressed: () {
+                      Firestore.instance
+                          .collection('users')
+                          .document(userDoc)
+                          .updateData({
+                        "cartItems": FieldValue.arrayUnion([data[index]['id']])
+                      });
+                      alertBox(data[index]['name'] + " added to cart");
+                    }),
               ),
             ),
             Padding(
@@ -141,8 +165,28 @@ class _ShoeCategoryState extends State<ShoeCategory> {
             builder: (context) => ProductPage(
               id: index,
               data: data,
+              userDoc : userDoc,
             ),
           ),
+        );
+      },
+    );
+  }
+  void alertBox(message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert"),
+          content: Text(message),
+          actions: [
+            FlatButton(
+              child: Text("Done"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       },
     );

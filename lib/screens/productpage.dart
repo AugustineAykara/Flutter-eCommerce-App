@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../sizeconfig.dart';
 
 class ProductPage extends StatefulWidget {
   final int id;
   final List data;
-  ProductPage({Key key, this.id, this.data}) : super(key: key);
+  final String userDoc;
+  ProductPage({Key key, this.id, this.data, this.userDoc}) : super(key: key);
   @override
   _ProductPageState createState() => _ProductPageState();
 }
@@ -12,11 +15,13 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
+  String userDoc;
 
   @override
   Widget build(BuildContext context) {
     id = widget.id;
     data = widget.data;
+    userDoc = widget.userDoc;
     SizeConfig().init(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -132,12 +137,13 @@ class _ProductPageState extends State<ProductPage> {
                 elevation: 1,
                 color: Colors.deepOrange,
                 onPressed: () {
-                  // //model.addCart(widget.detail);
-                  // Timer(Duration(milliseconds: 500), (){
-                  //   showCartSnak(model.cartMsg,model.success);
-                  // });
-                  //cartDb.insertCartItem(cart);
-                  //cart.id += 1;
+                  Firestore.instance
+                      .collection('users')
+                      .document(userDoc)
+                      .updateData({
+                    "cartItems": FieldValue.arrayUnion([data[id]['id']])
+                  });
+                  alertBox(data[id]['name'] + " added to cart");
                 },
                 child: Text(
                   "ADD TO CART",
@@ -148,6 +154,26 @@ class _ProductPageState extends State<ProductPage> {
               )
             ],
           )),
+    );
+  }
+
+  void alertBox(message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert"),
+          content: Text(message),
+          actions: [
+            FlatButton(
+              child: Text("Done"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

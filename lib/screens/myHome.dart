@@ -137,7 +137,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                     ),
                     body: TabBarView(
                       children: <Widget>[
-                        ShoeCategory(category:"populars"),
+                        ShoeCategory(category:"popular"),
                         ShoeCategory(category:"sports"),                        
                         ShoeCategory(category:"formals"),                                                
                       ],
