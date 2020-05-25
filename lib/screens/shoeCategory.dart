@@ -18,15 +18,13 @@ class _ShoeCategoryState extends State<ShoeCategory> {
   Future<String> getJsonData() async {
     var response = await http.get(
         Uri.encodeFull(
-            "https://flutter-shopmate.herokuapp.com/" + widget.category),
+            "http://3.6.234.33:1337/products?category=" + widget.category),
         headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
       if (this.mounted) {
         var converDataToJson = jsonDecode(response.body);
         data = converDataToJson;
-        print(data.length);
-        //print(converDataToJson);
         return ("Success");
       }
     }
@@ -47,7 +45,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (BuildContext context, int index) {
-                  return new BodyWidget(data, index);
+                  return bodyWidget(data, index, context);
                 },
               ),
             );
@@ -63,20 +61,9 @@ class _ShoeCategoryState extends State<ShoeCategory> {
           }
         });
   }
-}
 
-class BodyWidget extends StatelessWidget {
-  List data;
-  int index;
-  BodyWidget(data, index) {
-    this.data = data;
-    this.index = index;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget bodyWidget(data, index, context) {
     double height = MediaQuery.of(context).size.height;
-
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       child: Container(
@@ -114,8 +101,9 @@ class BodyWidget extends StatelessWidget {
                     height: SizeConfig.blockSizeVertical * 12,
                     //width: SizeConfig.blockSizeHorizontal * 20,
                     child: Image.network(
-                      "https://flutter-shopmate.herokuapp.com" +
-                          data[index]['image']['url'].toString(),
+                      "http://3.6.234.33:1337" +
+                          data[index]['image']['formats']['thumbnail']['url']
+                              .toString(),
                       //data[index]['event_poster'],
                       //height: 30,
                       fit: BoxFit.cover,

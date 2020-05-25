@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import '../sizeconfig.dart';
 
 class ProductPage extends StatefulWidget {
-  int id;
-  List data;
+  final int id;
+  final List data;
   ProductPage({Key key, this.id, this.data}) : super(key: key);
   @override
-  State createState() => new ProductPageState(id: this.id, data: this.data);
+  _ProductPageState createState() => _ProductPageState();
 }
 
-class ProductPageState extends State<ProductPage> {
+class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
-  ProductPageState({this.id, this.data});
 
   @override
   Widget build(BuildContext context) {
+    id = widget.id;
+    data = widget.data;
     SizeConfig().init(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -47,7 +48,7 @@ class ProductPageState extends State<ProductPage> {
                         //width: width,
                         child: new SizedBox(
                           child: Image.network(
-                            "https://flutter-shopmate.herokuapp.com" +
+                            "http://3.6.234.33:1337" +
                                 data[id]['image']['url'].toString(),
                             //Image.network(data[index]['event_poster'],
                             fit: BoxFit.cover,
