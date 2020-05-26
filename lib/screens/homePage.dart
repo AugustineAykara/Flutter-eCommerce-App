@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'myHome.dart';
 import 'offers.dart';
 import 'favourites.dart';
-// import 'cart/cart.dart';
 import '../account/login.dart';
 
 class Home extends StatefulWidget {

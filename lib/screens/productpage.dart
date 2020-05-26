@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'cart/cartData.dart';
 import 'cart/cartModel.dart';
-
 import '../sizeconfig.dart';
 
 class ProductPage extends StatefulWidget {
@@ -19,20 +17,7 @@ class _ProductPageState extends State<ProductPage> {
   String userDoc;
 
   static String apiURL = "http://13.126.219.172:1337";
-
   CartDb cartDb = CartDb();
-
-  //   final FirebaseAuth auth = FirebaseAuth.instance;
-  // getCurrentUser() async {
-  //   FirebaseUser user = await auth.currentUser();
-  //   userDoc = user.email;
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getCurrentUser();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -175,26 +160,6 @@ class _ProductPageState extends State<ProductPage> {
               )
             ],
           )),
-    );
-  }
-
-  void alertBox(message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Alert"),
-          content: Text(message),
-          actions: [
-            FlatButton(
-              child: Text("Done"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

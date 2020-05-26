@@ -1,9 +1,9 @@
-// import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
+
 import '../sizeconfig.dart';
 import 'cart/cart.dart';
+import 'offers.dart';
 import 'shoeCategory.dart';
 
 class MyHome extends StatefulWidget {
@@ -100,18 +100,28 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: Container(
-                            height: SizeConfig.blockSizeVertical * 20,
-                            //width: width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            child: Image.network(
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzYEl6iQxZLInQQsxvZtpJR3dtD93D3_GybSMMM3B-J8fSGkL57g&s",
-                              //data[index]['event_poster'],
-                              //height: 30,
-                              fit: BoxFit.cover,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Offers(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: SizeConfig.blockSizeVertical * 20,
+                              //width: width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
+                              child: Image.network(
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzYEl6iQxZLInQQsxvZtpJR3dtD93D3_GybSMMM3B-J8fSGkL57g&s",
+                                //data[index]['event_poster'],
+                                //height: 30,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),

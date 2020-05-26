@@ -214,7 +214,7 @@ class _RegisterFormState extends State<RegisterForm> {
           .document(emailController.text)
           .setData({
         'name': nameController.text,
-        'phone': phoneController.text,
+        'phone': int.parse(phoneController.text),
         'email': emailController.text,
       });
       Navigator.pushReplacement(

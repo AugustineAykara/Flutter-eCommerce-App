@@ -8,9 +8,8 @@ class Offers extends StatefulWidget {
 class OffersState extends State<Offers> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      color: Colors.white,
-      child: ListView(
+    return Scaffold(
+      body: Column(
         children: <Widget>[
           SizedBox(
             height: 30,

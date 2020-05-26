@@ -1,13 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../productpage.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'cartData.dart';
 import 'cartModel.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:http/http.dart' as http;
 
 class Cart extends StatefulWidget {
   @override
@@ -16,12 +16,73 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   double subtotal;
-
   CartDb cartDb = CartDb();
   List<CartObj> cartobjs;
   int count;
-  // List data;
+  String useremailid, username;
+  int phone;
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Razorpay razorpay;
+
+  getCurrentUser() async {
+    final FirebaseUser user = await auth.currentUser();
+    Firestore.instance
+        .collection('users')
+        .document(user.email)
+        .get()
+        .then((value) {
+      setState(() {
+        username = value.data['name'];
+        useremailid = value.data['email'];
+        phone = value.data['phone'];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+    razorpay = Razorpay();
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, success);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, error);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, wallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    razorpay.clear();
+  }
+
+  void onCheckout() {
+    var option = {
+      'key': 'rzp_test_upPK53iLb5xy08',
+      'amount': subtotal * 100,
+      'name': 'Shopmate',
+      'prefill.name': username,
+      'prefill.email': useremailid,
+      'prefill.contact': phone,
+    };
+    try {
+      razorpay.open(option);
+    } catch (e) {
+      debugPrint(e);
+    }
+  }
+
+  void success(PaymentSuccessResponse response) {
+    alertBox('SUCCESS : ' + response.paymentId);
+  }
+
+  void error(PaymentFailureResponse response) {
+    alertBox('ERROR : ' + response.code.toString() + " :- " + response.message);
+  }
+
+  void wallet(ExternalWalletResponse response) {
+    alertBox('WALLET : ' + response.walletName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +145,7 @@ class _CartState extends State<Cart> {
             Expanded(
               child: MaterialButton(
                 onPressed: () {
-                  //fetch();
+                  onCheckout();
                 },
                 child: new Text(
                   "Check Out",
@@ -146,6 +207,26 @@ class _CartState extends State<Cart> {
         });
       });
     });
+  }
+
+  void alertBox(message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alert"),
+          content: Text(message),
+          actions: [
+            FlatButton(
+              child: Text("Done"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   // Future fetch() async {
