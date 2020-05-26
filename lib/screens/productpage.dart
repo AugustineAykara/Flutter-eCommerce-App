@@ -153,8 +153,9 @@ class _ProductPageState extends State<ProductPage> {
                   // alertBox(data[id]['name'] + " added to cart");
                   // var price = double.parse(data[id]['price'].toString());
                   // print(price);
-                  CartObj cart = CartObj(id, "http://13.126.219.172:1337" +data[id]['image']['formats']['thumbnail']['url'].toString(), data[id]['name'].toString(), double.parse(data[id]['price'].toString()), 1, 'kg');
+                  CartObj cart = CartObj(data[id]['id'], "http://13.126.219.172:1337" +data[id]['image']['formats']['thumbnail']['url'].toString(), data[id]['name'].toString(), double.parse(data[id]['price'].toString()), 1, 'kg');
                   cartDb.insertCartItem(cart);
+                  idsss++;
                 },
                 child: Text(
                   "ADD TO CART",
