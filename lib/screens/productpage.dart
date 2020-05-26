@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'cart/cartData.dart';
 import 'cart/cartModel.dart';
+import 'cart/cart.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../sizeconfig.dart';
 
@@ -17,7 +20,9 @@ class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
   String userDoc;
-  String _selectedValue;
+  String _selectedValue='6';
+  List<CartObj> cartobjs;
+   int count;
 
   static String apiURL = "http://13.126.219.172:1337";
 
@@ -40,9 +45,25 @@ class _ProductPageState extends State<ProductPage> {
     sampleData.add(new RadioModel(false, '10'));
     sampleData.add(new RadioModel(false, '11'));
   }
+  void updateListview() {
+    final Future<Database> dbFuture = cartDb.initialseDb();
+    dbFuture.then((databse) {
+      Future<List<CartObj>> cartListFuture = cartDb.getCartItems();
+      cartListFuture.then((onValue) {
+        setState(() {
+          this.cartobjs = onValue;
+          this.count = cartobjs.length;
+        });
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (cartobjs == null) {
+      cartobjs = List<CartObj>();
+      updateListview();
+    }
     id = widget.id;
     data = widget.data;
     SizeConfig().init(context);
@@ -197,6 +218,12 @@ class _ProductPageState extends State<ProductPage> {
                   // alertBox(data[id]['name'] + " added to cart");
                   // var price = double.parse(data[id]['price'].toString());
                    //print(_selectedValue);
+                    for (int i = 0; i < cartobjs.length; i++) {
+                      print(cartobjs[i].id);
+                      if(data[id]['id']==cartobjs[i].id){
+                        return Fluttertoast.showToast(msg: 'Item already exist');
+                      }
+                    }
                   CartObj cart = CartObj(
                       data[id]['id'],
                       apiURL +
