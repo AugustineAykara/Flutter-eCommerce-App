@@ -38,6 +38,7 @@ dependencies:
   path_provider: ^1.6.9
   fluttertoast: ^4.0.1
   
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

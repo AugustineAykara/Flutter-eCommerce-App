@@ -40,7 +40,7 @@ class _CartState extends State<Cart> {
         //leading: IconButton(icon:Icon(Icons.arrow_back), onPressed: (){}),
         backgroundColor: Color(0xFF343239),
         elevation: 0,
-        title: new Text("Cart"),
+        title: new Text("Cart",style:  TextStyle(fontSize: 20.0,fontWeight: FontWeight.w300, color: Colors.white)),
       ),
       body: Hero(
         tag: 'category',
@@ -105,23 +105,40 @@ class _CartState extends State<Cart> {
 
   Widget listview(BuildContext context, int index) {
     return GestureDetector(
-      child: Card(
-        elevation: 0,
-        child: ListTile(
-          leading: FadeInImage.assetNetwork(
-            placeholder: 'assets/images/imgloading.gif',
-            image: cartobjs[index].image.toString(),
-            fit: BoxFit.fill,
-            height: 100,
-            width: 100,
+      child: Container(
+        height: 130,
+        child: Card(
+          elevation: 0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            
+            children: <Widget>[
+              ListTile(
+                leading: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/imgloading.gif',
+                  image: cartobjs[index].image.toString(),
+                  fit: BoxFit.cover,
+                  height: 100,
+                  //width: 100,
+                ),
+                title: Text(cartobjs[index].name, style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
+                subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("₹ " + cartobjs[index].price.toString(),style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
+                    Text("Size: "+cartobjs[index].quantity.toString()),
+                    ],
+                ),
+                
+                trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      _deleteitem(context, cartobjs[index]);
+                    }),
+              ),
+            ],
           ),
-          title: Text(cartobjs[index].name),
-          subtitle: Text("₹ " + cartobjs[index].price.toString()),
-          trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                _deleteitem(context, cartobjs[index]);
-              }),
         ),
       ),
     );
