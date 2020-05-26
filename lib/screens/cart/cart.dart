@@ -95,6 +95,7 @@ class _CartState extends State<Cart> {
     for (int i = 0; i < cartobjs.length; i++) {
       subtotal += cartobjs[i].price;
     }
+    
 
     return Scaffold(
       appBar: AppBar(
