@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'cart/cartData.dart';
+import 'cart/cartModel.dart';
 
 import '../sizeconfig.dart';
 
@@ -16,6 +18,11 @@ class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
   String userDoc;
+  int active =0;
+  int idsss = 1;
+  
+  
+  CartDb cartDb = CartDb();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,7 @@ class _ProductPageState extends State<ProductPage> {
                         //width: width,
                         child: new SizedBox(
                           child: Image.network(
-                            "http://3.6.234.33:1337" +
+                            "13.126.219.172:1337" +
                                 data[id]['image']['url'].toString(),
                             //Image.network(data[index]['event_poster'],
                             fit: BoxFit.cover,
@@ -137,13 +144,17 @@ class _ProductPageState extends State<ProductPage> {
                 elevation: 1,
                 color: Colors.deepOrange,
                 onPressed: () {
-                  Firestore.instance
-                      .collection('users')
-                      .document(userDoc)
-                      .updateData({
-                    "cartItems": FieldValue.arrayUnion([data[id]['id']])
-                  });
-                  alertBox(data[id]['name'] + " added to cart");
+                  // Firestore.instance
+                  //     .collection('users')
+                  //     .document(userDoc)
+                  //     .updateData({
+                  //   "cartItems": FieldValue.arrayUnion([data[id]['id']])
+                  // });
+                  // alertBox(data[id]['name'] + " added to cart");
+                  // var price = double.parse(data[id]['price'].toString());
+                  // print(price);
+                  CartObj cart = CartObj(id, "http://13.126.219.172:1337" +data[id]['image']['formats']['thumbnail']['url'].toString(), data[id]['name'].toString(), double.parse(data[id]['price'].toString()), 1, 'kg');
+                  cartDb.insertCartItem(cart);
                 },
                 child: Text(
                   "ADD TO CART",

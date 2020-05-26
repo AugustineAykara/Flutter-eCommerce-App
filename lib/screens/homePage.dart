@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'myHome.dart';
 import 'offers.dart';
 import 'favourites.dart';
-import 'myCart.dart';
+import 'cart/cart.dart';
 import '../account/login.dart';
 
 class Home extends StatefulWidget {
@@ -28,7 +28,7 @@ class HomeState extends State<Home> {
       case 2:
         return Favourites();
       case 3:
-        return MyCart();
+        return Cart();
         break;
       default:
         return MyHome();

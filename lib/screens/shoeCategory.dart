@@ -21,7 +21,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
   Future<String> getJsonData() async {
     var response = await http.get(
         Uri.encodeFull(
-            "http://3.6.234.33:1337/products?category=" + widget.category),
+            "http://13.126.219.172:1337/products?category=" + widget.category),
         headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
@@ -125,7 +125,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                     height: SizeConfig.blockSizeVertical * 12,
                     //width: SizeConfig.blockSizeHorizontal * 20,
                     child: Image.network(
-                      "http://3.6.234.33:1337" +
+                      "http://13.126.219.172:1337" +
                           data[index]['image']['formats']['thumbnail']['url']
                               .toString(),
                       //data[index]['event_poster'],
