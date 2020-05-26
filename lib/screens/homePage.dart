@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'myHome.dart';
 import 'offers.dart';
 import 'favourites.dart';
-import 'cart/cart.dart';
+// import 'cart/cart.dart';
 import '../account/login.dart';
 
 class Home extends StatefulWidget {
@@ -27,9 +27,6 @@ class HomeState extends State<Home> {
         return Offers();
       case 2:
         return Favourites();
-      case 3:
-        return Cart();
-        break;
       default:
         return MyHome();
     }
@@ -95,7 +92,6 @@ class HomeState extends State<Home> {
               ),
               decoration: new BoxDecoration(color: Colors.blue[800]),
             ),
-
             InkWell(
               onTap: () {},
               child: ListTile(
@@ -116,7 +112,6 @@ class HomeState extends State<Home> {
                 ),
               ),
             ),
-
             InkWell(
               onTap: () {},
               child: ListTile(
@@ -171,47 +166,36 @@ class HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: Colors.white,
             ),
             title: Text(
               "Home",
-              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            backgroundColor: Colors.blue[800],
+            // backgroundColor: Colors.blue[800],
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.local_offer,
-              color: Colors.white,
             ),
             title: Text(
               "Offers",
-              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            backgroundColor: Colors.blue[800],
+            // backgroundColor: Colors.blue[800],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             title: Text(
               "Favourite",
-              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
+              style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            backgroundColor: Colors.blue[800],
+            // backgroundColor: Colors.blue[800],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            title: Text(
-              "My cart",
-              //style: TextStyle(fontFamily: 'BreeSerif', color: Colors.white),
-            ),
-            backgroundColor: Colors.blue[800],
-          )
         ],
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
-          if (index == 2) {}
         },
       ),
     );

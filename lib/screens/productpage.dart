@@ -8,8 +8,7 @@ import '../sizeconfig.dart';
 class ProductPage extends StatefulWidget {
   final int id;
   final List data;
-  final String userDoc;
-  ProductPage({Key key, this.id, this.data, this.userDoc}) : super(key: key);
+  ProductPage({Key key, this.id, this.data}) : super(key: key);
   @override
   _ProductPageState createState() => _ProductPageState();
 }
@@ -18,17 +17,27 @@ class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
   String userDoc;
-  int active =0;
-  int idsss = 1;
-  
-  
+
+  static String apiURL = "http://13.126.219.172:1337";
+
   CartDb cartDb = CartDb();
+
+  //   final FirebaseAuth auth = FirebaseAuth.instance;
+  // getCurrentUser() async {
+  //   FirebaseUser user = await auth.currentUser();
+  //   userDoc = user.email;
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getCurrentUser();
+  // }
 
   @override
   Widget build(BuildContext context) {
     id = widget.id;
     data = widget.data;
-    userDoc = widget.userDoc;
     SizeConfig().init(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -60,9 +69,7 @@ class _ProductPageState extends State<ProductPage> {
                         //width: width,
                         child: new SizedBox(
                           child: Image.network(
-                            "13.126.219.172:1337" +
-                                data[id]['image']['url'].toString(),
-                            //Image.network(data[index]['event_poster'],
+                            apiURL + data[id]['image']['url'].toString(),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -72,11 +79,6 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ],
             ),
-            // new Container(
-            //         height: .5,
-            //         color: Colors.grey,
-            //         width: width / 1,
-            //       ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width / 15),
               child: Column(
@@ -90,7 +92,7 @@ class _ProductPageState extends State<ProductPage> {
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: SizeConfig.blockSizeVertical * 4)),
-                  new Text("Sports Shoe",
+                  new Text(data[id]['category'].toString(),
                       style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
@@ -134,7 +136,7 @@ class _ProductPageState extends State<ProductPage> {
                         style: TextStyle(fontSize: 12.0, color: Colors.grey),
                       ),
                     ),
-                    Text(data[id]['price'].toString(),
+                    Text("₹ " + data[id]['price'].toString(),
                         style: TextStyle(
                             fontSize: 25.0, fontWeight: FontWeight.w600)),
                   ],
@@ -153,9 +155,16 @@ class _ProductPageState extends State<ProductPage> {
                   // alertBox(data[id]['name'] + " added to cart");
                   // var price = double.parse(data[id]['price'].toString());
                   // print(price);
-                  CartObj cart = CartObj(data[id]['id'], "http://13.126.219.172:1337" +data[id]['image']['formats']['thumbnail']['url'].toString(), data[id]['name'].toString(), double.parse(data[id]['price'].toString()), 1, 'kg');
+                  CartObj cart = CartObj(
+                      data[id]['id'],
+                      apiURL +
+                          data[id]['image']['formats']['thumbnail']['url']
+                              .toString(),
+                      data[id]['name'].toString(),
+                      double.parse(data[id]['price'].toString()),
+                      1,
+                      'kg');
                   cartDb.insertCartItem(cart);
-                  idsss++;
                 },
                 child: Text(
                   "ADD TO CART",

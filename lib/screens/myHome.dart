@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 import '../sizeconfig.dart';
+import 'cart/cart.dart';
 import 'shoeCategory.dart';
 
 class MyHome extends StatefulWidget {
@@ -38,7 +39,17 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                       style: TextStyle(
                           fontWeight: FontWeight.w800, fontSize: height / 30),
                     ),
-                    IconButton(icon: Icon(Icons.shopping_cart), onPressed: null)
+                    IconButton(
+                      icon: Icon(Icons.shopping_cart),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Cart(),
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
                 SizedBox(
@@ -137,9 +148,9 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                     ),
                     body: TabBarView(
                       children: <Widget>[
-                        ShoeCategory(category:"popular"),
-                        ShoeCategory(category:"sports"),                        
-                        ShoeCategory(category:"formals"),                                                
+                        ShoeCategory(category: "popular"),
+                        ShoeCategory(category: "sports"),
+                        ShoeCategory(category: "formals"),
                       ],
                     ),
                   ),

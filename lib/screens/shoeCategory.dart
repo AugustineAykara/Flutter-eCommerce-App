@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../sizeconfig.dart';
 import 'package:http/http.dart' as http;
 import 'productpage.dart';
@@ -18,10 +16,11 @@ class _ShoeCategoryState extends State<ShoeCategory> {
   List data;
   String userDoc;
 
+  static String apiURL = "http://13.126.219.172:1337";
+
   Future<String> getJsonData() async {
     var response = await http.get(
-        Uri.encodeFull(
-            "http://13.126.219.172:1337/products?category=" + widget.category),
+        Uri.encodeFull(apiURL + "/products?category=" + widget.category),
         headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
@@ -34,17 +33,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
     return (null);
   }
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  getCurrentUser() async {
-    FirebaseUser user = await auth.currentUser();
-    userDoc = user.email;
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    getCurrentUser();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,14 +95,16 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                 ),
                 child: IconButton(
                     icon: Icon(Icons.add, color: Colors.white, size: 15),
-                    onPressed: () {
-                      Firestore.instance
-                          .collection('users')
-                          .document(userDoc)
-                          .updateData({
-                        "cartItems": FieldValue.arrayUnion([data[index]['id']])
-                      });
-                      alertBox(data[index]['name'] + " added to cart");
+                    onPressed: () {                     
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductPage(
+                            id: index,
+                            data: data,
+                          ),
+                        ),
+                      );
                     }),
               ),
             ),
@@ -125,7 +116,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                     height: SizeConfig.blockSizeVertical * 12,
                     //width: SizeConfig.blockSizeHorizontal * 20,
                     child: Image.network(
-                      "http://13.126.219.172:1337" +
+                      apiURL +
                           data[index]['image']['formats']['thumbnail']['url']
                               .toString(),
                       //data[index]['event_poster'],
@@ -164,29 +155,9 @@ class _ShoeCategoryState extends State<ShoeCategory> {
           MaterialPageRoute(
             builder: (context) => ProductPage(
               id: index,
-              data: data,
-              userDoc : userDoc,
+              data: data,              
             ),
           ),
-        );
-      },
-    );
-  }
-  void alertBox(message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Alert"),
-          content: Text(message),
-          actions: [
-            FlatButton(
-              child: Text("Done"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
         );
       },
     );

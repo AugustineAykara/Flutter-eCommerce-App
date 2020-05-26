@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../productpage.dart';
 import 'cartData.dart';
 import 'cartModel.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -14,17 +15,13 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  double subtotal = 1000.00;
+  double subtotal;
 
   CartDb cartDb = CartDb();
   List<CartObj> cartobjs;
   int count;
-  List data;
+  // List data;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,44 +29,18 @@ class _CartState extends State<Cart> {
       cartobjs = List<CartObj>();
       updateListview();
     }
+
+    subtotal = 0;
+    for (int i = 0; i < cartobjs.length; i++) {
+      subtotal += cartobjs[i].price;
+    }
+
     return Scaffold(
       appBar: AppBar(
         //leading: IconButton(icon:Icon(Icons.arrow_back), onPressed: (){}),
         backgroundColor: Color(0xFF343239),
         elevation: 0,
         title: new Text("Cart"),
-      ),
-      bottomNavigationBar: new Container(
-        color: Color(0xFF343239),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: ListTile(
-                title: Text(
-                  "Subtotal: ₹ $subtotal",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-                child: MaterialButton(
-              onPressed: () {
-                //fetch();
-              },
-              child: new Text(
-                "Check Out",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              color: Colors.blue,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0)),
-            ))
-          ],
-        ),
       ),
       body: Hero(
         tag: 'category',
@@ -96,6 +67,39 @@ class _CartState extends State<Cart> {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        color: Color(0xFF343239),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: ListTile(
+                title: Text(
+                  "Subtotal: " + subtotal.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: MaterialButton(
+                onPressed: () {
+                  //fetch();
+                },
+                child: new Text(
+                  "Check Out",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                color: Colors.blue,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0)),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -103,19 +107,16 @@ class _CartState extends State<Cart> {
     return GestureDetector(
       child: Card(
         elevation: 0,
-        
         child: ListTile(
-          
           leading: FadeInImage.assetNetwork(
             placeholder: 'assets/images/imgloading.gif',
-            image:
-                cartobjs[index].image.toString(),
+            image: cartobjs[index].image.toString(),
             fit: BoxFit.fill,
             height: 100,
             width: 100,
           ),
           title: Text(cartobjs[index].name),
-          subtitle: Text('Price' + cartobjs[index].price.toString()),
+          subtitle: Text("₹ " + cartobjs[index].price.toString()),
           trailing: IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
@@ -159,8 +160,8 @@ class _CartState extends State<Cart> {
   //   final response = await http.post('https://kartmate.herokuapp.com/api/v1/order/', headers: {
   //     "Authorization": '$value',
   //     "Content-Type": "application/json"
-      
-  //   }, 
+
+  //   },
   //   body: jsonEncode({"items": cartobjs,"price": 4})
   //   );
   //   status = response.body.contains('error');
