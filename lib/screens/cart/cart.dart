@@ -119,7 +119,7 @@ class _CartState extends State<Cart> {
                   image: cartobjs[index].image.toString(),
                   fit: BoxFit.cover,
                   height: 100,
-                  //width: 100,
+                  width: 100,
                 ),
                 title: Text(cartobjs[index].name, style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
                 subtitle: Column(
