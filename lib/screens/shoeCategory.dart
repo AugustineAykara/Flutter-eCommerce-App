@@ -91,7 +91,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(10),
                       topLeft: Radius.circular(10)),
-                  color: Colors.blue[800],
+                  color: Colors.black,
                 ),
                 child: IconButton(
                     icon: Icon(Icons.add, color: Colors.white, size: 15),

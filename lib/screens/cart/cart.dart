@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'cartData.dart';
 import 'cartModel.dart';
+import '../../sizeconfig.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -96,14 +97,55 @@ class _CartState extends State<Cart> {
       subtotal += cartobjs[i].price;
     }
     
+    SizeConfig().init(context);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        //leading: IconButton(icon:Icon(Icons.arrow_back), onPressed: (){}),
-        backgroundColor: Color(0xFF343239),
-        elevation: 0,
-        title: new Text("Cart",style:  TextStyle(fontSize: 20.0,fontWeight: FontWeight.w300, color: Colors.white)),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(130),
+        child: Container(
+          decoration: BoxDecoration(
+            // image: DecorationImage(
+            //   image: AssetImage("assets/images/bgblack.png"),
+            //   fit: BoxFit.cover,
+            // ),
+            color: Colors.black,
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0)),
+          ),
+
+          //color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width / 20),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical * 8,
+                ),
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    new Text(
+                      "My Cart",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: height / 25,
+                          color: Colors.white),
+                    ),
+                   
+                  ],
+                ),
+                
+                SizedBox(
+                  height: 30,
+                ),
+                
+              ],
+            ),
+          ),
+        ),
       ),
+      
       body: Hero(
         tag: 'category',
         child: SingleChildScrollView(
@@ -130,15 +172,16 @@ class _CartState extends State<Cart> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: Color(0xFF343239),
+        color: Colors.white,
         child: Row(
           children: <Widget>[
             Expanded(
               child: ListTile(
                 title: Text(
-                  "Subtotal: " + subtotal.toString(),
+                  "Subtotal: Rs." + subtotal.toString(),
                   style: TextStyle(
-                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -154,9 +197,9 @@ class _CartState extends State<Cart> {
                     color: Colors.white,
                   ),
                 ),
-                color: Colors.blue,
+                color: Colors.black,
                 shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
+                    borderRadius: new BorderRadius.circular(10.0)),
               ),
             )
           ],

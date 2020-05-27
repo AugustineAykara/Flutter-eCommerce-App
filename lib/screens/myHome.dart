@@ -21,26 +21,39 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(SizeConfig.blockSizeVertical * 19),
+        preferredSize: Size.fromHeight(230),
         child: Container(
-          color: Colors.white,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bgblack.png"),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0)),
+          ),
+
+          //color: Colors.white,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: width / 20),
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 5,
+                  height: SizeConfig.blockSizeVertical * 8,
                 ),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     new Text(
-                      "Browse",
+                      "Explore",
                       style: TextStyle(
-                          fontWeight: FontWeight.w800, fontSize: height / 30),
+                          fontWeight: FontWeight.w500,
+                          fontSize: height / 25,
+                          color: Colors.white),
                     ),
                     IconButton(
-                      icon: Icon(Icons.shopping_cart),
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -52,8 +65,19 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                     )
                   ],
                 ),
+                Row(
+                  children: <Widget>[
+                    new Text(
+                      "Your favourite shoes",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: height / 40,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
                 SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 Container(
                   height: SizeConfig.blockSizeVertical * 4.5,
@@ -93,7 +117,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width / 30),
@@ -113,14 +137,17 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                               height: SizeConfig.blockSizeVertical * 20,
                               //width: width,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                //borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: Colors.white,
                               ),
-                              child: Image.network(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzYEl6iQxZLInQQsxvZtpJR3dtD93D3_GybSMMM3B-J8fSGkL57g&s",
-                                //data[index]['event_poster'],
-                                //height: 30,
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Image.network(
+                                  "https://www.gbusiness.in/includes/templates/lacosteshirtsa.co/images/banner.jpg",
+                                  //data[index]['event_poster'],
+                                  //height: 30,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                           ),
@@ -141,7 +168,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
               Container(
-                height: SizeConfig.blockSizeVertical * 70,
+                height: 500,
                 child: DefaultTabController(
                   length: 3,
                   child: Scaffold(
@@ -151,10 +178,10 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                         Tab(icon: Text('Sports')),
                         Tab(icon: Text('Formal')),
                       ],
-                      labelColor: Colors.blue[800],
+                      labelColor: Colors.black,
                       unselectedLabelColor: Colors.grey,
                       isScrollable: false,
-                      indicatorColor: Colors.blue[800],
+                      indicatorColor: Colors.black,
                     ),
                     body: TabBarView(
                       children: <Widget>[

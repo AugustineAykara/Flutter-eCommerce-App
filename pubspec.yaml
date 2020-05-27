@@ -60,6 +60,8 @@ flutter:
     - assets/logo/logo.png
     - assets/logo/logo01.png
     - assets/logo/signup.png
+    - assets/logo/signupbw.png
+    - assets/images/bgblack.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -66,18 +66,7 @@ class _ProductPageState extends State<ProductPage> {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    SizedBox(height: 30),
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      color: Colors.black,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
+                
                 Column(
                   children: <Widget>[
                     SizedBox(
@@ -94,6 +83,35 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          color: Colors.black,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.shopping_cart),
+                          color: Colors.black,
+                          onPressed: () {
+                            Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Cart(),
+                          ),
+                        );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -150,7 +168,7 @@ class _ProductPageState extends State<ProductPage> {
                       itemBuilder: (BuildContext context, int index) {
                         return new InkWell(
                           //highlightColor: Colors.red,
-                          splashColor: Colors.blueAccent,
+                          splashColor: Colors.black,
                           onTap: () {
                             setState(() {
                               sampleData.forEach(
@@ -199,7 +217,7 @@ class _ProductPageState extends State<ProductPage> {
               ),
               RaisedButton(
                 elevation: 1,
-                color: Colors.deepOrange,
+                color: Colors.black,
                 onPressed: () {
                   // Firestore.instance
                   //     .collection('users')
@@ -232,7 +250,7 @@ class _ProductPageState extends State<ProductPage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
+                    borderRadius: new BorderRadius.circular(10.0)),
               )
             ],
           )),
@@ -261,10 +279,10 @@ class RadioItem extends StatelessWidget {
                       fontSize: 18.0)),
             ),
             decoration: new BoxDecoration(
-              color: _item.isSelected ? Colors.blueAccent : Colors.transparent,
+              color: _item.isSelected ? Colors.black : Colors.transparent,
               border: new Border.all(
                   width: 1.0,
-                  color: _item.isSelected ? Colors.blueAccent : Colors.grey),
+                  color: _item.isSelected ? Colors.black : Colors.grey),
               borderRadius: const BorderRadius.all(const Radius.circular(2.0)),
             ),
           ),

@@ -161,6 +161,7 @@ class HomeState extends State<Home> {
         child: callPage(_currentIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
@@ -169,7 +170,7 @@ class HomeState extends State<Home> {
             ),
             title: Text(
               "Home",
-              style: TextStyle(fontFamily: 'BreeSerif'),
+              //style: TextStyle(fontFamily: 'BreeSerif'),
             ),
             // backgroundColor: Colors.blue[800],
           ),
@@ -179,7 +180,7 @@ class HomeState extends State<Home> {
             ),
             title: Text(
               "Offers",
-              style: TextStyle(fontFamily: 'BreeSerif'),
+              //style: TextStyle(fontFamily: 'BreeSerif'),
             ),
             // backgroundColor: Colors.blue[800],
           ),
@@ -187,7 +188,7 @@ class HomeState extends State<Home> {
             icon: Icon(Icons.favorite),
             title: Text(
               "Favourite",
-              style: TextStyle(fontFamily: 'BreeSerif'),
+              //style: TextStyle(fontFamily: 'BreeSerif'),
             ),
             // backgroundColor: Colors.blue[800],
           ),
