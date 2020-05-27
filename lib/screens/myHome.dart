@@ -37,7 +37,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 8,
+                  height: SizeConfig.blockSizeVertical * 6.5,
                 ),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,14 +80,14 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                   height: 30,
                 ),
                 Container(
-                  height: SizeConfig.blockSizeVertical * 4.5,
+                  // height: SizeConfig.blockSizeVertical * 4.5,
                   width: double.infinity,
                   child: CupertinoTextField(
                     keyboardType: TextInputType.text,
                     placeholder: 'Search here',
                     placeholderStyle: TextStyle(
                       color: Color(0xffC4C6CC),
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontFamily: 'Poppins',
                     ),
                     prefix: Padding(
@@ -144,6 +144,16 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.network(
                                   "https://www.gbusiness.in/includes/templates/lacosteshirtsa.co/images/banner.jpg",
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Center(
+                                      child: Text(
+                                        "No Internet : Check your network connection",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red),
+                                      ),
+                                    );
+                                  },
                                   //data[index]['event_poster'],
                                   //height: 30,
                                   fit: BoxFit.fill,

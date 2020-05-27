@@ -219,19 +219,10 @@ class _ProductPageState extends State<ProductPage> {
                 elevation: 1,
                 color: Colors.black,
                 onPressed: () {
-                  // Firestore.instance
-                  //     .collection('users')
-                  //     .document(userDoc)
-                  //     .updateData({
-                  //   "cartItems": FieldValue.arrayUnion([data[id]['id']])
-                  // });
-                  // alertBox(data[id]['name'] + " added to cart");
-                  // var price = double.parse(data[id]['price'].toString());
-                  // print(price);
                   for (int i = 0; i < cartobjs.length; i++) {
                       print(cartobjs[i].id);
                       if(data[id]['id']==cartobjs[i].id){
-                        return Fluttertoast.showToast(msg: 'Item already exist');
+                        Fluttertoast.showToast(msg: 'Item already exist');
                       }
                     }
                   CartObj cart = CartObj(

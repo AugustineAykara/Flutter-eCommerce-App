@@ -75,6 +75,12 @@ class _CartState extends State<Cart> {
 
   void success(PaymentSuccessResponse response) {
     alertBox('SUCCESS : ' + response.paymentId);
+    for (int i = 0; i < cartobjs.length; i++) {
+      Firestore.instance.collection('users').document(useremailid).updateData({
+        "myOder": FieldValue.arrayUnion([cartobjs[i].id])
+      });    
+      _deleteitem(context, cartobjs[i]);
+    }
   }
 
   void error(PaymentFailureResponse response) {
@@ -96,7 +102,7 @@ class _CartState extends State<Cart> {
     for (int i = 0; i < cartobjs.length; i++) {
       subtotal += cartobjs[i].price;
     }
-    
+
     SizeConfig().init(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -132,20 +138,16 @@ class _CartState extends State<Cart> {
                           fontSize: height / 25,
                           color: Colors.white),
                     ),
-                   
                   ],
                 ),
-                
                 SizedBox(
                   height: 30,
                 ),
-                
               ],
             ),
           ),
         ),
       ),
-      
       body: Hero(
         tag: 'category',
         child: SingleChildScrollView(
@@ -172,6 +174,7 @@ class _CartState extends State<Cart> {
         ),
       ),
       bottomNavigationBar: Container(
+        margin: EdgeInsets.only(right: 12),
         color: Colors.white,
         child: Row(
           children: <Widget>[
@@ -216,7 +219,6 @@ class _CartState extends State<Cart> {
           elevation: 0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            
             children: <Widget>[
               ListTile(
                 leading: FadeInImage.assetNetwork(
@@ -226,16 +228,19 @@ class _CartState extends State<Cart> {
                   height: 100,
                   width: 100,
                 ),
-                title: Text(cartobjs[index].name, style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
+                title: Text(cartobjs[index].name,
+                    style:
+                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700)),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("₹ " + cartobjs[index].price.toString(),style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
-                    Text("Size: "+cartobjs[index].quantity.toString()),
-                    ],
+                    Text("₹ " + cartobjs[index].price.toString(),
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.w700)),
+                    Text("Size: " + cartobjs[index].quantity.toString()),
+                  ],
                 ),
-                
                 trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
