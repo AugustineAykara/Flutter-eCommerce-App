@@ -72,14 +72,19 @@ class _ProductPageState extends State<ProductPage> {
                     SizedBox(
                       height: SizeConfig.blockSizeVertical * 4,
                     ),
-                    Center(
-                      child: new SizedBox(
-                        height: SizeConfig.blockSizeVertical * 40,
-                        //width: width,
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                        
                         child: new SizedBox(
-                          child: Image.network(
-                            apiURL + data[id]['image']['url'].toString(),
-                            fit: BoxFit.cover,
+                          height: SizeConfig.blockSizeVertical * 40,
+                          //width: width/10,
+                          child: new SizedBox(
+                            child: Image.network(
+                              
+                              apiURL + data[id]['image']['url'].toString(),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                       ),
@@ -124,7 +129,7 @@ class _ProductPageState extends State<ProductPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   new Text(data[id]['name'].toString(),
                       style: TextStyle(

@@ -103,7 +103,7 @@ class _CartState extends State<Cart> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130),
+        preferredSize: Size.fromHeight(150),
         child: Container(
           decoration: BoxDecoration(
             // image: DecorationImage(
@@ -115,25 +115,35 @@ class _CartState extends State<Cart> {
           ),
 
           //color: Colors.white,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width / 20),
-            child: Column(
+          child:Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 8,
+                  height: SizeConfig.blockSizeVertical * 5,
                 ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(
-                      "My Cart",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: height / 25,
-                          color: Colors.white),
-                    ),
-                   
-                  ],
+                IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          color: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width/30),
+                  child: new Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Text(
+                        "My Cart",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: height / 25,
+                            color: Colors.white),
+                      ),
+                     
+                    ],
+                  ),
                 ),
                 
                 SizedBox(
@@ -144,7 +154,7 @@ class _CartState extends State<Cart> {
             ),
           ),
         ),
-      ),
+      
       
       body: Hero(
         tag: 'category',
