@@ -16,7 +16,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
   List data;
   String userDoc;
 
-  static String apiURL = "http://13.126.219.172:1337";
+  static String apiURL = "http://13.126.207.59:1337";
 
   Future<String> getJsonData() async {
     var response = await http.get(

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'cart/cartData.dart';
 import 'cart/cartModel.dart';
 import '../sizeconfig.dart';
+import 'cart/cart.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductPage extends StatefulWidget {
   final int id;
@@ -15,12 +18,44 @@ class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
   String userDoc;
+  String _selectedValue = '6';
+  List<CartObj> cartobjs;
+   int count;
+  List<RadioModel> sampleData = new List<RadioModel>();
 
-  static String apiURL = "http://13.126.219.172:1337";
+  static String apiURL = "http://13.126.207.59:1337";
   CartDb cartDb = CartDb();
 
   @override
+  void initState() {
+    super.initState();
+    sampleData.add(new RadioModel(true, '6'));
+    sampleData.add(new RadioModel(false, '7'));
+    sampleData.add(new RadioModel(false, '8'));
+    sampleData.add(new RadioModel(false, '9'));
+    sampleData.add(new RadioModel(false, '10'));
+    sampleData.add(new RadioModel(false, '11'));
+  }
+
+  void updateListview() {
+    final Future<Database> dbFuture = cartDb.initialseDb();
+    dbFuture.then((databse) {
+      Future<List<CartObj>> cartListFuture = cartDb.getCartItems();
+      cartListFuture.then((onValue) {
+        setState(() {
+          this.cartobjs = onValue;
+          this.count = cartobjs.length;
+        });
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (cartobjs == null) {
+      cartobjs = List<CartObj>();
+      updateListview();
+    }
     id = widget.id;
     data = widget.data;
     SizeConfig().init(context);
@@ -95,6 +130,41 @@ class _ProductPageState extends State<ProductPage> {
                           color: Colors.grey,
                           fontWeight: FontWeight.w600,
                           fontSize: SizeConfig.blockSizeVertical * 2)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  new Text("Size",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                          fontSize: SizeConfig.blockSizeVertical * 2)),
+                  Container(
+                    height: 120,
+                    child: new GridView.builder(
+                      gridDelegate:
+                          new SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: sampleData.length,
+                      ),
+                      physics: ScrollPhysics(),
+                      itemCount: sampleData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return new InkWell(
+                          //highlightColor: Colors.red,
+                          splashColor: Colors.blueAccent,
+                          onTap: () {
+                            setState(() {
+                              sampleData.forEach(
+                                  (element) => element.isSelected = false);
+
+                              sampleData[index].isSelected = true;
+                              _selectedValue = sampleData[index].buttonText;
+                            });
+                          },
+                          child: new RadioItem(sampleData[index]),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             )
@@ -140,6 +210,12 @@ class _ProductPageState extends State<ProductPage> {
                   // alertBox(data[id]['name'] + " added to cart");
                   // var price = double.parse(data[id]['price'].toString());
                   // print(price);
+                  for (int i = 0; i < cartobjs.length; i++) {
+                      print(cartobjs[i].id);
+                      if(data[id]['id']==cartobjs[i].id){
+                        return Fluttertoast.showToast(msg: 'Item already exist');
+                      }
+                    }
                   CartObj cart = CartObj(
                       data[id]['id'],
                       apiURL +
@@ -147,7 +223,7 @@ class _ProductPageState extends State<ProductPage> {
                               .toString(),
                       data[id]['name'].toString(),
                       double.parse(data[id]['price'].toString()),
-                      1,
+                      int.parse(_selectedValue),
                       'kg');
                   cartDb.insertCartItem(cart);
                 },
@@ -162,4 +238,45 @@ class _ProductPageState extends State<ProductPage> {
           )),
     );
   }
+}
+
+class RadioItem extends StatelessWidget {
+  final RadioModel _item;
+  RadioItem(this._item);
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      //margin: new EdgeInsets.all(15.0),
+      child: new Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          new Container(
+            height: 50.0,
+            width: 50.0,
+            child: new Center(
+              child: new Text(_item.buttonText,
+                  style: new TextStyle(
+                      color: _item.isSelected ? Colors.white : Colors.black,
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 18.0)),
+            ),
+            decoration: new BoxDecoration(
+              color: _item.isSelected ? Colors.blueAccent : Colors.transparent,
+              border: new Border.all(
+                  width: 1.0,
+                  color: _item.isSelected ? Colors.blueAccent : Colors.grey),
+              borderRadius: const BorderRadius.all(const Radius.circular(2.0)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RadioModel {
+  bool isSelected;
+  final String buttonText;
+
+  RadioModel(this.isSelected, this.buttonText);
 }
