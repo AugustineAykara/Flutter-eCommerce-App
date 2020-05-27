@@ -67,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'assets/logo/signup.png',
+              'assets/logo/signupbw.png',
               height: SizeConfig.blockSizeVertical * 30,
             ),
             Text(
@@ -113,7 +113,7 @@ class _LoginFormState extends State<LoginForm> {
                   RaisedButton(
                     //elevation: 8,
                     textColor: Colors.white,
-                    color: Colors.red,
+                    color: Colors.black,
                     padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
                     child: Text(
                       'Login',
