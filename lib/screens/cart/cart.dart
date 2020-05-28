@@ -133,6 +133,7 @@ class _CartState extends State<Cart> {
                     new Text(
                       "My Cart",
                       style: TextStyle(
+                          letterSpacing: 1,
                           fontWeight: FontWeight.w500,
                           fontSize: height / 25,
                           color: Colors.white),

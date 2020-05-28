@@ -47,6 +47,7 @@ class _OrderState extends State<Order> {
                     Text(
                       "My Orders",
                       style: TextStyle(
+                          letterSpacing: 1,
                           fontWeight: FontWeight.w500,
                           fontSize: height / 25,
                           color: Colors.white),
@@ -73,8 +74,6 @@ class _OrderState extends State<Order> {
                 physics: ScrollPhysics(),
                 itemCount: orderIdList == null ? 0 : orderIdList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  // print(index);
-                  // getJsonData(orderIdList[index]);
                   return CardObject(orderId :orderIdList[index], useremail: widget.useremail);
                 },
               ),

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../sizeconfig.dart';
 import 'cart/cart.dart';
 import './myOrder/myOrders.dart';
+import '../account/login.dart' ;
 
 class Profile extends StatefulWidget {
   @override
@@ -30,6 +31,16 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  userLogout() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -49,7 +60,6 @@ class _ProfileState extends State<Profile> {
             color: Colors.black,
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0)),
           ),
-
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: width / 20),
             child: Column(
@@ -63,6 +73,7 @@ class _ProfileState extends State<Profile> {
                     Text(
                       "Profile",
                       style: TextStyle(
+                          letterSpacing: 1,
                           fontWeight: FontWeight.w500,
                           fontSize: height / 25,
                           color: Colors.white),
@@ -141,7 +152,7 @@ class _ProfileState extends State<Profile> {
                       height: 8,
                       color: Colors.black,
                     ),
-                    FlatButton(
+                    FlatButton(    
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -155,7 +166,7 @@ class _ProfileState extends State<Profile> {
                         child: Text(
                           "My Order",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'poppins'),
                         ),
                       ),
                     ),
@@ -171,7 +182,7 @@ class _ProfileState extends State<Profile> {
                         child: Text(
                           "My Address",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'poppins'),
                         ),
                       ),
                     ),
@@ -181,13 +192,15 @@ class _ProfileState extends State<Profile> {
                       color: Colors.black,
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        userLogout();
+                      },
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Logout",
+                          "LOGOUT",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'poppins', color: Colors.redAccent),
                         ),
                       ),
                     ),

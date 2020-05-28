@@ -257,7 +257,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepOrange[50],
+      color: Colors.grey[50],
       child: Container(
         margin: EdgeInsets.all(28),
         child: Column(
@@ -320,7 +320,7 @@ class _RegisterFormState extends State<RegisterForm> {
             RaisedButton(
               elevation: 8,
               textColor: Colors.white,
-              color: Colors.yellow[800],
+              color: Colors.black,
               padding: EdgeInsets.fromLTRB(22, 10, 22, 10),
               child: Text(
                 'Register',
@@ -331,8 +331,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
               shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.yellowAccent)),
+                borderRadius: new BorderRadius.circular(18.0),
+              ),
               onPressed: () {
                 inputValidationAndRegisterData();
               },

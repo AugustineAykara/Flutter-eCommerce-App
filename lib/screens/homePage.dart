@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'myHome.dart';
 import 'offers.dart';
-import 'favourites.dart';
 import 'profile.dart';
 import '../account/login.dart';
 
@@ -27,8 +26,6 @@ class HomeState extends State<Home> {
       case 1:
         return Offers();
       case 2:
-        return Favourites();
-      case 3:
         return Profile();
       default:
         return MyHome();
@@ -176,7 +173,6 @@ class HomeState extends State<Home> {
               "Home",
               style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            // backgroundColor: Colors.blue[800],
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -186,17 +182,6 @@ class HomeState extends State<Home> {
               "Offers",
               style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            // backgroundColor: Colors.blue[800],
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-            ),
-            title: Text(
-              "Favourite",
-              style: TextStyle(fontFamily: 'BreeSerif'),
-            ),
-            // backgroundColor: Colors.blue[800],
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -206,7 +191,6 @@ class HomeState extends State<Home> {
               "Profile",
               style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            // backgroundColor: Colors.blue[800],
           ),
         ],
         onTap: (index) {
