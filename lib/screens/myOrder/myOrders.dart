@@ -75,7 +75,7 @@ class _OrderState extends State<Order> {
                 itemBuilder: (BuildContext context, int index) {
                   // print(index);
                   // getJsonData(orderIdList[index]);
-                  return CardObject(orderId :orderIdList[index]);
+                  return CardObject(orderId :orderIdList[index], useremail: widget.useremail);
                 },
               ),
             );

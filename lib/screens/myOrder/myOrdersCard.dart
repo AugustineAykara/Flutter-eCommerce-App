@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 class CardObject extends StatefulWidget {
   final int orderId;
-  CardObject({Key key, this.orderId}) : super(key: key);
+  final String useremail;
+  CardObject({Key key, this.orderId, this.useremail}) : super(key: key);
   @override
   _CardObjectState createState() => _CardObjectState();
 }
@@ -85,8 +87,46 @@ class _CardObjectState extends State<CardObject> {
           ],
         ),
         subtitle: Text("Rs. " + data[0]['price'].toString()),
-        trailing: Icon(Icons.cancel, size: 28, color: Colors.red),
+        trailing: IconButton(
+          icon: Icon(Icons.cancel, size: 28, color: Colors.red),
+          onPressed: () {
+            alertBox();
+          },
+        ),
       ),
+    );
+  }
+
+  void alertBox() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Cancel Order"),
+          content: Text(
+              "Your refund will be issued automatically within 2-3 days. Are you sure you want to cancel your order ?"),
+          actions: [
+            FlatButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            FlatButton(
+              child: Text("Yes"),
+              onPressed: () {
+                Firestore.instance
+                    .collection('users')
+                    .document(widget.useremail)
+                    .updateData({
+                  'myOrders': FieldValue.arrayRemove([widget.orderId])
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

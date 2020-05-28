@@ -293,36 +293,4 @@ class _CartState extends State<Cart> {
       },
     );
   }
-
-  // Future fetch() async {
-  //   var status;
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final key = 'Authorization';
-  //   final value = prefs.getString(key) ?? 0;
-  //   print(value);
-  //   String jsonUser = jsonEncode(cartobjs);
-  //   //print(cartobjs);
-
-  //   final response = await http.post('https://kartmate.herokuapp.com/api/v1/order/', headers: {
-  //     "Authorization": '$value',
-  //     "Content-Type": "application/json"
-
-  //   },
-  //   body: jsonEncode({"items": cartobjs,"price": 4})
-  //   );
-  //   status = response.body.contains('error');
-  //   print(jsonEncode({"items": cartobjs,"price": 4}));
-  //   var data = jsonDecode(response.body);
-  //   // var data = json.decode(response.body);
-  //   // print(data['key']);
-  //   print(response.statusCode);
-  //   if (status) {
-  //     print('data : ${data["error"]}');
-  //     return null;
-  //   } else {
-  //     //print('data : ${data["key"]}');
-
-  //     return data["key"];
-  //   }
-  // }
 }
