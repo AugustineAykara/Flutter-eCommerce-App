@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../sizeconfig.dart';
+import 'cart/cart.dart';
+import './myOrder/myOrders.dart';
+
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -34,13 +38,58 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          "Profile",
-          style: TextStyle(fontSize: 30, color: Colors.black),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(110),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0)),
+          ),
+
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width / 20),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical * 8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Profile",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: height / 25,
+                          color: Colors.white),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Cart(),
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -93,7 +142,14 @@ class _ProfileState extends State<Profile> {
                       color: Colors.black,
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Order(useremail: useremailid),
+                          ),
+                        );
+                      },
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(

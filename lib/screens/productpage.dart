@@ -23,7 +23,7 @@ class _ProductPageState extends State<ProductPage> {
    int count;
   List<RadioModel> sampleData = new List<RadioModel>();
 
-  static String apiURL = "http://13.126.207.59:1337";
+  static String apiURL = "http://13.234.18.96:1337";
   CartDb cartDb = CartDb();
 
   @override

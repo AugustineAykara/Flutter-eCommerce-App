@@ -3,12 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sqflite/sqflite.dart';
 
+import '../../sizeconfig.dart';
 import 'cartData.dart';
 import 'cartModel.dart';
-import '../../sizeconfig.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -77,7 +76,7 @@ class _CartState extends State<Cart> {
     alertBox('SUCCESS : ' + response.paymentId);
     for (int i = 0; i < cartobjs.length; i++) {
       Firestore.instance.collection('users').document(useremailid).updateData({
-        "myOder": FieldValue.arrayUnion([cartobjs[i].id])
+        "myOrders": FieldValue.arrayUnion([cartobjs[i].id])
       });    
       _deleteitem(context, cartobjs[i]);
     }
@@ -109,7 +108,7 @@ class _CartState extends State<Cart> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130),
+        preferredSize: Size.fromHeight(100),
         child: Container(
           decoration: BoxDecoration(
             // image: DecorationImage(
@@ -155,7 +154,7 @@ class _CartState extends State<Cart> {
             padding: EdgeInsets.all(10),
             child: new Column(
               children: <Widget>[
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Container(
                   child: ListView.builder(
                       shrinkWrap: true,
