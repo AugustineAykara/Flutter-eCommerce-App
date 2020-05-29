@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(110),
+        preferredSize: Size.fromHeight(90),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.black,
@@ -65,7 +65,7 @@ class _ProfileState extends State<Profile> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 8,
+                  height: SizeConfig.blockSizeVertical * 6,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,14 +75,14 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(
                           letterSpacing: 1,
                           fontWeight: FontWeight.w500,
-                          fontSize: height / 25,
+                          fontSize: height / 30,
                           color: Colors.white),
                     ),
                     IconButton(
                       icon: Icon(
                         Icons.shopping_cart,
                         color: Colors.white,
-                        size: 28,
+                        size: 25,
                       ),
                       onPressed: () {
                         Navigator.push(
@@ -95,9 +95,7 @@ class _ProfileState extends State<Profile> {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                
               ],
             ),
           ),
@@ -111,12 +109,12 @@ class _ProfileState extends State<Profile> {
             children: <Widget>[
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height / 2.5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(.2), blurRadius: 19)
+                        color: Colors.black.withOpacity(.05), blurRadius: 19)
                   ],
                   color: Colors.white,
                 ),
@@ -147,11 +145,7 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Divider(
-                      thickness: 2,
-                      height: 8,
-                      color: Colors.black,
-                    ),
+                   
                     FlatButton(    
                       onPressed: () {
                         Navigator.push(
@@ -171,9 +165,9 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Divider(
-                      thickness: 2,
+                      thickness: 1,
                       height: 8,
-                      color: Colors.black,
+                      color: Colors.grey,
                     ),
                     FlatButton(
                       onPressed: () {},
@@ -187,9 +181,9 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Divider(
-                      thickness: 2,
+                      thickness: 1,
                       height: 8,
-                      color: Colors.black,
+                      color: Colors.grey,
                     ),
                     FlatButton(
                       onPressed: () {
@@ -205,9 +199,9 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Divider(
-                      thickness: 2,
+                      thickness: 1,
                       height: 8,
-                      color: Colors.black,
+                      color: Colors.grey,
                     ),
                   ],
                 ),

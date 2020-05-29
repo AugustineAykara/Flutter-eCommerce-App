@@ -108,7 +108,7 @@ class _CartState extends State<Cart> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(80),
         child: Container(
           decoration: BoxDecoration(
             // image: DecorationImage(
@@ -125,7 +125,7 @@ class _CartState extends State<Cart> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 8,
+                  height: SizeConfig.blockSizeVertical * 6,
                 ),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,14 +135,12 @@ class _CartState extends State<Cart> {
                       style: TextStyle(
                           letterSpacing: 1,
                           fontWeight: FontWeight.w500,
-                          fontSize: height / 25,
+                          fontSize: height / 30,
                           color: Colors.white),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                
               ],
             ),
           ),

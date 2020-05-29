@@ -69,7 +69,7 @@ class _CardObjectState extends State<CardObject> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      elevation: 6,
+      elevation: 0.5,
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Image.network(

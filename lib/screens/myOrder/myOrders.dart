@@ -26,7 +26,7 @@ class _OrderState extends State<Order> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(80),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.black,
@@ -39,7 +39,7 @@ class _OrderState extends State<Order> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 8,
+                  height: SizeConfig.blockSizeVertical * 6,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,14 +49,12 @@ class _OrderState extends State<Order> {
                       style: TextStyle(
                           letterSpacing: 1,
                           fontWeight: FontWeight.w500,
-                          fontSize: height / 25,
+                          fontSize: height / 30,
                           color: Colors.white),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                
               ],
             ),
           ),

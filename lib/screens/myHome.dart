@@ -5,6 +5,7 @@ import '../sizeconfig.dart';
 import 'cart/cart.dart';
 import 'offers.dart';
 import 'shoeCategory.dart';
+import '../SABT.dart';
 
 class MyHome extends StatefulWidget {
   static String tag = 'MyHome';
@@ -20,97 +21,119 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(230),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/bgblack.png"),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0)),
-          ),
-
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width / 20),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical * 6.5,
-                ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(
-                      "Explore",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w500,
-                          fontSize: height / 25,
-                          color: Colors.white),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Cart(),
-                          ),
-                        );
-                      },
-                    )
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    new Text(
-                      "Your favourite shoes",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: height / 40,
-                          color: Colors.white),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  // height: SizeConfig.blockSizeVertical * 4.5,
-                  width: double.infinity,
-                  child: CupertinoTextField(
-                    keyboardType: TextInputType.text,
-                    placeholder: 'Search here',
-                    placeholderStyle: TextStyle(
-                      color: Color(0xffC4C6CC),
-                      fontSize: 16.0,
-                      fontFamily: 'Poppins',
-                    ),
-                    prefix: Padding(
-                      padding: const EdgeInsets.fromLTRB(9.0, 6.0, 9.0, 6.0),
-                      child: Icon(
-                        Icons.search,
-                        color: Color(0xffC4C6CC),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
       body: CustomScrollView(
         slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 220.0,
+            backgroundColor: Colors.black,
+            floating: false,
+            pinned: true,
+            shape: ContinuousRectangleBorder(
+                borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(100),
+            )),
+            //leading: new Container(),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Cart(),
+                    ),
+                  );
+                },
+              )
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+                //centerTitle: true,
+                title: SABT(
+                    child: Text(
+                  "Shopmate",
+                  style: TextStyle(color: Colors.white),
+                )),
+                background: Column(
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Image(
+                                image: AssetImage("assets/images/bgblack.png")),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width / 20),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: SizeConfig.blockSizeVertical * 8,
+                              ),
+                              new Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  new Text(
+                                    "Explore",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: height / 25,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  new Text(
+                                    "Your favourite shoes",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: height / 40,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                height: 40,
+                                width: double.infinity,
+                                child: CupertinoTextField(
+                                  keyboardType: TextInputType.text,
+                                  placeholder: 'Search here',
+                                  placeholderStyle: TextStyle(
+                                    color: Color(0xffC4C6CC),
+                                    fontSize: 14.0,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                  prefix: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        9.0, 6.0, 9.0, 6.0),
+                                    child: Icon(
+                                      Icons.search,
+                                      color: Color(0xffC4C6CC),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
+          ),
           SliverToBoxAdapter(
             child: Container(
               child: Column(
@@ -134,7 +157,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                               );
                             },
                             child: Container(
-                              height: SizeConfig.blockSizeVertical * 20,
+                              height: 180,
                               //width: width,
                               decoration: BoxDecoration(
                                 //borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -153,7 +176,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                                             color: Colors.red),
                                       ),
                                     );
-                                  },                                  
+                                  },
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -203,7 +226,6 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
               ),
             ]),
           ),
-         
         ],
       ),
     );
