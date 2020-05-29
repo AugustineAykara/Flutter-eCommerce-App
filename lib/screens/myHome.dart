@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../sizeconfig.dart';
 import 'cart/cart.dart';
-import 'offers.dart';
 import 'shoeCategory.dart';
 import '../SABT.dart';
 
@@ -50,12 +49,12 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
               )
             ],
             flexibleSpace: FlexibleSpaceBar(
-                //centerTitle: true,
                 title: SABT(
-                    child: Text(
-                  "Shopmate",
-                  style: TextStyle(color: Colors.white),
-                )),
+                  child: Text(
+                    "Shopmate",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 background: Column(
                   children: <Widget>[
                     Stack(
@@ -140,45 +139,25 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 20,
+                    height: 8,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width / 30),
+                    padding: EdgeInsets.symmetric(horizontal: width / 60),
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Offers(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              height: 180,
-                              //width: width,
-                              decoration: BoxDecoration(
-                                //borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: Colors.white,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.network(
-                                  "https://www.gbusiness.in/includes/templates/lacosteshirtsa.co/images/banner.jpg",
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Center(
-                                      child: Text(
-                                        "No Internet : Check your network connection",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red),
-                                      ),
-                                    );
-                                  },
-                                  fit: BoxFit.fill,
-                                ),
+                          child: Container(
+                            height: 180,
+                            //width: width,
+                            decoration: BoxDecoration(
+                              //borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: Colors.white,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset(
+                                'assets/images/banner.gif',
+                                fit: BoxFit.fill,
                               ),
                             ),
                           ),
@@ -205,9 +184,24 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
                   child: Scaffold(
                     appBar: TabBar(
                       tabs: const <Tab>[
-                        Tab(icon: Text('Popular')),
-                        Tab(icon: Text('Sports')),
-                        Tab(icon: Text('Formal')),
+                        Tab(
+                          icon: Text(
+                            'Popular',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Tab(
+                          icon: Text(
+                            'Sports',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Tab(
+                          icon: Text(
+                            'Formal',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ],
                       labelColor: Colors.black,
                       unselectedLabelColor: Colors.grey,

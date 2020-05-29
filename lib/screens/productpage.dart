@@ -6,6 +6,8 @@ import 'cart/cart.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../constant.dart' as Constants;
+
 class ProductPage extends StatefulWidget {
   final int id;
   final List data;
@@ -24,7 +26,8 @@ class _ProductPageState extends State<ProductPage> {
    int count;
   List<RadioModel> sampleData = new List<RadioModel>();
 
-  static String apiURL = "http://13.234.18.96:1337";
+  static String apiURL = Constants.API_URL;
+
   CartDb cartDb = CartDb();
 
   @override
