@@ -17,6 +17,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
+  int flag;
   String userDoc;
   String _selectedValue = '6';
   List<CartObj> cartobjs;
@@ -72,14 +73,19 @@ class _ProductPageState extends State<ProductPage> {
                     SizedBox(
                       height: SizeConfig.blockSizeVertical * 4,
                     ),
-                    Center(
-                      child: new SizedBox(
-                        height: SizeConfig.blockSizeVertical * 40,
-                        //width: width,
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                        
                         child: new SizedBox(
-                          child: Image.network(
-                            apiURL + data[id]['image']['url'].toString(),
-                            fit: BoxFit.cover,
+                          height: SizeConfig.blockSizeVertical * 40,
+                          //width: width/10,
+                          child: new SizedBox(
+                            child: Image.network(
+                              
+                              apiURL + data[id]['image']['url'].toString(),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                       ),
@@ -124,7 +130,7 @@ class _ProductPageState extends State<ProductPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   new Text(data[id]['name'].toString(),
                       style: TextStyle(
@@ -219,13 +225,16 @@ class _ProductPageState extends State<ProductPage> {
                 elevation: 1,
                 color: Colors.black,
                 onPressed: () {
+                  flag=0;
                   for (int i = 0; i < cartobjs.length; i++) {
                       print(cartobjs[i].id);
                       if(data[id]['id']==cartobjs[i].id){
+                        flag=1;
                         Fluttertoast.showToast(msg: 'Item already exist');
                       }
                     }
-                  CartObj cart = CartObj(
+                  if(flag==0){
+                    CartObj cart = CartObj(
                       data[id]['id'],
                       apiURL +
                           data[id]['image']['formats']['thumbnail']['url']
@@ -235,6 +244,7 @@ class _ProductPageState extends State<ProductPage> {
                       int.parse(_selectedValue),
                       'kg');
                   cartDb.insertCartItem(cart);
+                  }
                 },
                 child: Text(
                   "ADD TO CART",

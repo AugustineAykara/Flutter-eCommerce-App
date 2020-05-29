@@ -148,9 +148,7 @@ class _CartState extends State<Cart> {
           ),
         ),
       ),
-      body: Hero(
-        tag: 'category',
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(10),
             child: new Column(
@@ -172,7 +170,7 @@ class _CartState extends State<Cart> {
             ),
           ),
         ),
-      ),
+      
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(right: 12),
         color: Colors.white,

@@ -123,7 +123,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                               .toString(),
                       //data[index]['event_poster'],
                       //height: 30,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   SizedBox(

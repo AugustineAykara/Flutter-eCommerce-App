@@ -176,7 +176,7 @@ class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
               Container(
-                height: 500,
+                height: 700,
                 child: DefaultTabController(
                   length: 3,
                   child: Scaffold(
