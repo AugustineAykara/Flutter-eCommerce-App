@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../sizeconfig.dart';
 import 'package:http/http.dart' as http;
 import 'productpage.dart';
+import '../constant.dart' as Constants;
 
 class ShoeCategory extends StatefulWidget {
   final String category;
@@ -15,8 +16,11 @@ class ShoeCategory extends StatefulWidget {
 class _ShoeCategoryState extends State<ShoeCategory> {
   List data;
   String userDoc;
+  
 
-  static String apiURL = "http://13.234.18.96:1337";
+  // print(Constants.API_URL);
+
+  static String apiURL = Constants.API_URL;
 
   Future<String> getJsonData() async {
     var response = await http.get(
