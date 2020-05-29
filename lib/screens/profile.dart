@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../sizeconfig.dart';
 import 'cart/cart.dart';
 import './myOrder/myOrders.dart';
-import '../account/login.dart' ;
+import '../account/login.dart';
+import 'address.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -160,7 +161,10 @@ class _ProfileState extends State<Profile> {
                         child: Text(
                           "My Order",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'poppins'),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'poppins'),
                         ),
                       ),
                     ),
@@ -170,13 +174,23 @@ class _ProfileState extends State<Profile> {
                       color: Colors.grey,
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Address(useremail: useremailid),
+                          ),
+                        );
+                      },
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "My Address",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'poppins'),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'poppins'),
                         ),
                       ),
                     ),
@@ -194,7 +208,11 @@ class _ProfileState extends State<Profile> {
                         child: Text(
                           "LOGOUT",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'poppins', color: Colors.redAccent),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'poppins',
+                              color: Colors.redAccent),
                         ),
                       ),
                     ),
@@ -206,60 +224,6 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-
-              // Column(
-              //   children: <Widget>[
-              //     Container(
-              //       width: double.infinity,
-              //       height: 1,
-              //       color: Colors.black,
-              //     ),
-              //     Divider(
-              //       thickness: 2,
-              //       color: Colors.black,
-              //     ),
-              //   ],
-              // ),
-              // Column(
-              //   children: <Widget>[
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       children: <Widget>[
-              //         FlatButton(
-              //           onPressed: () {},
-              //           child: Text(
-              //             "My Address",
-              //             style: TextStyle(fontSize: 17),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
-              // Column(
-              //   children: <Widget>[
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       children: <Widget>[
-              //         FlatButton(
-              //           onPressed: () {},
-              //           child: Text(
-              //             "Logout",
-              //             style: TextStyle(fontSize: 17),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //     Container(
-              //       width: double.infinity,
-              //       height: 1,
-              //       color: Colors.black,
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 15,
-              // )
             ],
           ),
         ),
