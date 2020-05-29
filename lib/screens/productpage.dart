@@ -17,13 +17,14 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int id;
   List data;
+  int flag;
   String userDoc;
   String _selectedValue = '6';
   List<CartObj> cartobjs;
    int count;
   List<RadioModel> sampleData = new List<RadioModel>();
 
-  static String apiURL = "http://13.126.207.59:1337";
+  static String apiURL = "http://13.234.18.96:1337";
   CartDb cartDb = CartDb();
 
   @override
@@ -224,22 +225,16 @@ class _ProductPageState extends State<ProductPage> {
                 elevation: 1,
                 color: Colors.black,
                 onPressed: () {
-                  // Firestore.instance
-                  //     .collection('users')
-                  //     .document(userDoc)
-                  //     .updateData({
-                  //   "cartItems": FieldValue.arrayUnion([data[id]['id']])
-                  // });
-                  // alertBox(data[id]['name'] + " added to cart");
-                  // var price = double.parse(data[id]['price'].toString());
-                  // print(price);
+                  flag=0;
                   for (int i = 0; i < cartobjs.length; i++) {
                       print(cartobjs[i].id);
                       if(data[id]['id']==cartobjs[i].id){
-                        return Fluttertoast.showToast(msg: 'Item already exist');
+                        flag=1;
+                        Fluttertoast.showToast(msg: 'Item already exist');
                       }
                     }
-                  CartObj cart = CartObj(
+                  if(flag==0){
+                    CartObj cart = CartObj(
                       data[id]['id'],
                       apiURL +
                           data[id]['image']['formats']['thumbnail']['url']
@@ -249,6 +244,7 @@ class _ProductPageState extends State<ProductPage> {
                       int.parse(_selectedValue),
                       'kg');
                   cartDb.insertCartItem(cart);
+                  }
                 },
                 child: Text(
                   "ADD TO CART",

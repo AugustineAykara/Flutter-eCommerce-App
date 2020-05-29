@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'myHome.dart';
 import 'offers.dart';
-import 'favourites.dart';
+import 'profile.dart';
 import '../account/login.dart';
 
 class Home extends StatefulWidget {
@@ -26,7 +26,7 @@ class HomeState extends State<Home> {
       case 1:
         return Offers();
       case 2:
-        return Favourites();
+        return Profile();
       default:
         return MyHome();
     }
@@ -162,6 +162,7 @@ class HomeState extends State<Home> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
@@ -170,9 +171,8 @@ class HomeState extends State<Home> {
             ),
             title: Text(
               "Home",
-              //style: TextStyle(fontFamily: 'BreeSerif'),
+              style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            // backgroundColor: Colors.blue[800],
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -180,17 +180,17 @@ class HomeState extends State<Home> {
             ),
             title: Text(
               "Offers",
-              //style: TextStyle(fontFamily: 'BreeSerif'),
+              style: TextStyle(fontFamily: 'BreeSerif'),
             ),
-            // backgroundColor: Colors.blue[800],
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: Text(
-              "Favourite",
-              //style: TextStyle(fontFamily: 'BreeSerif'),
+            icon: Icon(
+              Icons.account_circle,
             ),
-            // backgroundColor: Colors.blue[800],
+            title: Text(
+              "Profile",
+              style: TextStyle(fontFamily: 'BreeSerif'),
+            ),
           ),
         ],
         onTap: (index) {

@@ -3,12 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sqflite/sqflite.dart';
 
+import '../../sizeconfig.dart';
 import 'cartData.dart';
 import 'cartModel.dart';
-import '../../sizeconfig.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -75,6 +74,12 @@ class _CartState extends State<Cart> {
 
   void success(PaymentSuccessResponse response) {
     alertBox('SUCCESS : ' + response.paymentId);
+    for (int i = 0; i < cartobjs.length; i++) {
+      Firestore.instance.collection('users').document(useremailid).updateData({
+        "myOrders": FieldValue.arrayUnion([cartobjs[i].id])
+      });    
+      _deleteitem(context, cartobjs[i]);
+    }
   }
 
   void error(PaymentFailureResponse response) {
@@ -96,14 +101,14 @@ class _CartState extends State<Cart> {
     for (int i = 0; i < cartobjs.length; i++) {
       subtotal += cartobjs[i].price;
     }
-    
+
     SizeConfig().init(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150),
+        preferredSize: Size.fromHeight(100),
         child: Container(
           decoration: BoxDecoration(
             // image: DecorationImage(
@@ -115,55 +120,40 @@ class _CartState extends State<Cart> {
           ),
 
           //color: Colors.white,
-          child:Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width / 20),
+            child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 5,
+                  height: SizeConfig.blockSizeVertical * 8,
                 ),
-                IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          color: Colors.white,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width/30),
-                  child: new Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Text(
-                        "My Cart",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: height / 25,
-                            color: Colors.white),
-                      ),
-                     
-                    ],
-                  ),
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    new Text(
+                      "My Cart",
+                      style: TextStyle(
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w500,
+                          fontSize: height / 25,
+                          color: Colors.white),
+                    ),
+                  ],
                 ),
-                
                 SizedBox(
                   height: 30,
                 ),
-                
               ],
             ),
           ),
         ),
-      
-      
-      body: Hero(
-        tag: 'category',
-        child: SingleChildScrollView(
+      ),
+      body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(10),
             child: new Column(
               children: <Widget>[
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Container(
                   child: ListView.builder(
                       shrinkWrap: true,
@@ -180,8 +170,9 @@ class _CartState extends State<Cart> {
             ),
           ),
         ),
-      ),
+      
       bottomNavigationBar: Container(
+        margin: EdgeInsets.only(right: 12),
         color: Colors.white,
         child: Row(
           children: <Widget>[
@@ -226,7 +217,6 @@ class _CartState extends State<Cart> {
           elevation: 0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            
             children: <Widget>[
               ListTile(
                 leading: FadeInImage.assetNetwork(
@@ -236,16 +226,19 @@ class _CartState extends State<Cart> {
                   height: 100,
                   width: 100,
                 ),
-                title: Text(cartobjs[index].name, style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
+                title: Text(cartobjs[index].name,
+                    style:
+                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700)),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("₹ " + cartobjs[index].price.toString(),style:  TextStyle(fontSize: 18.0,fontWeight: FontWeight.w700)),
-                    Text("Size: "+cartobjs[index].quantity.toString()),
-                    ],
+                    Text("₹ " + cartobjs[index].price.toString(),
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.w700)),
+                    Text("Size: " + cartobjs[index].quantity.toString()),
+                  ],
                 ),
-                
                 trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
@@ -299,36 +292,4 @@ class _CartState extends State<Cart> {
       },
     );
   }
-
-  // Future fetch() async {
-  //   var status;
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final key = 'Authorization';
-  //   final value = prefs.getString(key) ?? 0;
-  //   print(value);
-  //   String jsonUser = jsonEncode(cartobjs);
-  //   //print(cartobjs);
-
-  //   final response = await http.post('https://kartmate.herokuapp.com/api/v1/order/', headers: {
-  //     "Authorization": '$value',
-  //     "Content-Type": "application/json"
-
-  //   },
-  //   body: jsonEncode({"items": cartobjs,"price": 4})
-  //   );
-  //   status = response.body.contains('error');
-  //   print(jsonEncode({"items": cartobjs,"price": 4}));
-  //   var data = jsonDecode(response.body);
-  //   // var data = json.decode(response.body);
-  //   // print(data['key']);
-  //   print(response.statusCode);
-  //   if (status) {
-  //     print('data : ${data["error"]}');
-  //     return null;
-  //   } else {
-  //     //print('data : ${data["key"]}');
-
-  //     return data["key"];
-  //   }
-  // }
 }

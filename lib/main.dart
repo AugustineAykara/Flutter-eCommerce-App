@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       
       theme: ThemeData(
         fontFamily: 'Poppins',
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
         brightness: Brightness.light,
         textTheme: new TextTheme(
           bodyText1: new TextStyle(color: Colors.black),

@@ -16,7 +16,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
   List data;
   String userDoc;
 
-  static String apiURL = "http://13.126.207.59:1337";
+  static String apiURL = "http://13.234.18.96:1337";
 
   Future<String> getJsonData() async {
     var response = await http.get(
@@ -32,8 +32,6 @@ class _ShoeCategoryState extends State<ShoeCategory> {
     }
     return (null);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +93,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                 ),
                 child: IconButton(
                     icon: Icon(Icons.add, color: Colors.white, size: 15),
-                    onPressed: () {                     
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -121,7 +119,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
                               .toString(),
                       //data[index]['event_poster'],
                       //height: 30,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   SizedBox(
@@ -155,7 +153,7 @@ class _ShoeCategoryState extends State<ShoeCategory> {
           MaterialPageRoute(
             builder: (context) => ProductPage(
               id: index,
-              data: data,              
+              data: data,
             ),
           ),
         );
