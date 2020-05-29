@@ -99,8 +99,8 @@ class OffersState extends State<Offers> {
             return Center(
               child: Text("Loading images..."),
             );
-          }
-        },
+          }          
+        },        
       ),
     );
   }
