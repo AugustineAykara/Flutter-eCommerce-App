@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
-import '../../constant.dart';
+import '../../constant.dart' as Constants;
 
 
 class CardObject extends StatefulWidget {
@@ -16,7 +16,7 @@ class CardObject extends StatefulWidget {
 
 class _CardObjectState extends State<CardObject> {
   List data;
-  static String apiURL = API_URL;
+  static String apiURL = Constants.API_URL;
 
   Future<String> getJsonData(orderId) async {
     var response = await http.get(

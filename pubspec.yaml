@@ -61,6 +61,7 @@ flutter:
     - assets/logo/signupbw.png
     - assets/images/bgblack.png
     - assets/images/imgloading.gif
+    - assets/images/banner.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
