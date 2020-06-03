@@ -19,7 +19,7 @@ class _CartState extends State<Cart> {
   CartDb cartDb = CartDb();
   List<CartObj> cartobjs;
   int count;
-  String useremailid, username;
+  String useremailid, username, address;
   int phone;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -36,6 +36,7 @@ class _CartState extends State<Cart> {
         username = value.data['name'];
         useremailid = value.data['email'];
         phone = value.data['phone'];
+        address = value.data['addressLine1'];
       });
     });
   }
@@ -188,7 +189,12 @@ class _CartState extends State<Cart> {
             Expanded(
               child: MaterialButton(
                 onPressed: () {
-                  onCheckout();
+                  if(address == null){
+                    alertBox("Enter address details in profile section");
+                  }
+                  else{
+                    onCheckout();
+                  }
                 },
                 child: new Text(
                   "Check Out",
